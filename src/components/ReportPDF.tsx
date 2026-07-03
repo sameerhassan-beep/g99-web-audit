@@ -2,127 +2,245 @@ import React from 'react';
 import { Document, Page, Text, View, StyleSheet } from '@react-pdf/renderer';
 
 const styles = StyleSheet.create({
-  page: { flexDirection: 'column', padding: 40, fontFamily: 'Helvetica' },
-  header: { fontSize: 28, marginBottom: 20, fontWeight: 'bold', color: '#1e293b' },
-  url: { fontSize: 14, color: '#64748b', marginBottom: 20 },
-  sectionTitle: { fontSize: 18, marginTop: 25, marginBottom: 15, color: '#2563eb', fontWeight: 'bold' },
-  categoryTitle: { fontSize: 16, marginTop: 20, marginBottom: 10, fontWeight: 'bold', color: '#0f172a', textTransform: 'capitalize' },
-  text: { fontSize: 12, marginBottom: 8, lineHeight: 1.5, color: '#334155' },
-  scoreContainer: { alignItems: 'center', marginVertical: 30 },
-  scoreText: { fontSize: 56, fontWeight: 'bold', color: '#0f172a' },
-  scoreLabel: { fontSize: 14, color: '#64748b', marginTop: 5, textTransform: 'uppercase' },
-  bullet: { flexDirection: 'row', marginBottom: 5 },
-  bulletPoint: { width: 15, fontSize: 12, color: '#3b82f6' },
-  bulletText: { flex: 1, fontSize: 12, lineHeight: 1.5, color: '#334155' },
-  checkRow: { flexDirection: 'row', borderBottomWidth: 1, borderBottomColor: '#e2e8f0', paddingVertical: 8 },
-  checkStatus: { width: 60, fontSize: 10, fontWeight: 'bold' },
-  checkName: { width: '35%', fontSize: 10, paddingRight: 10, color: '#1e293b', fontWeight: 'bold' },
-  checkImpact: { width: 60, fontSize: 9, textTransform: 'uppercase' },
-  checkRemediation: { flex: 1, fontSize: 10, color: '#475569' },
-  tableHeader: { flexDirection: 'row', borderBottomWidth: 2, borderBottomColor: '#cbd5e1', paddingBottom: 5, marginTop: 10 },
-  tableHeaderText: { fontSize: 10, fontWeight: 'bold', color: '#64748b' }
+  page: { flexDirection: 'column', backgroundColor: '#ffffff', paddingTop: 30, paddingBottom: 40, paddingHorizontal: 0, fontFamily: 'Helvetica' },
+  
+  // Header / Cover styling
+  headerSection: {
+    backgroundColor: '#1e293b',
+    padding: 30,
+    paddingTop: 40,
+    paddingBottom: 40,
+    borderBottomWidth: 4,
+    borderBottomColor: '#3b82f6',
+  },
+  header: { fontSize: 24, marginBottom: 8, fontWeight: 'bold', color: '#ffffff', letterSpacing: -0.5 },
+  url: { fontSize: 11, color: '#94a3b8', fontWeight: 'medium' },
+  
+  // Score styling
+  scoreWrapper: {
+    alignItems: 'center',
+    marginVertical: 30,
+    padding: 24,
+    backgroundColor: '#f8fafc',
+    marginHorizontal: 30,
+    borderRadius: 8,
+  },
+  scoreText: { fontSize: 60, fontWeight: 'bold', color: '#0f172a' },
+  scoreLabel: { fontSize: 10, color: '#64748b', marginTop: 10, textTransform: 'uppercase', letterSpacing: 1, fontWeight: 'bold' },
+  
+  // Content Sections
+  contentArea: { paddingHorizontal: 30, paddingBottom: 20 },
+  sectionTitle: { fontSize: 16, marginTop: 10, marginBottom: 16, color: '#0f172a', fontWeight: 'bold', borderBottomWidth: 2, borderBottomColor: '#cbd5e1', paddingBottom: 8 },
+  
+  // Category Blocks
+  categoryBlock: {
+    marginBottom: 30,
+  },
+  categoryHeader: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    borderBottomWidth: 2,
+    borderBottomColor: '#e2e8f0',
+    paddingBottom: 8,
+    marginBottom: 16,
+    marginTop: 20,
+  },
+  categoryTitle: { fontSize: 15, fontWeight: 'bold', color: '#0f172a', textTransform: 'capitalize' },
+  categoryScore: { fontSize: 12, fontWeight: 'bold', color: '#3b82f6', backgroundColor: '#eff6ff', paddingHorizontal: 8, paddingVertical: 4, borderRadius: 4 },
+  
+  // Lists
+  listGroup: { marginBottom: 16 },
+  listHeading: { fontSize: 10, fontWeight: 'bold', marginBottom: 6, textTransform: 'uppercase', letterSpacing: 0.5 },
+  bullet: { flexDirection: 'row', marginBottom: 6, alignItems: 'flex-start' },
+  bulletPoint: { width: 12, fontSize: 10, fontWeight: 'bold', marginTop: -1 },
+  bulletText: { flex: 1, fontSize: 9, lineHeight: 1.5, color: '#475569' },
+  
+  // Tables
+  tableContainer: { marginTop: 12 },
+  tableHeader: { flexDirection: 'row', backgroundColor: '#f1f5f9', paddingVertical: 8, paddingHorizontal: 10, borderBottomWidth: 1, borderBottomColor: '#cbd5e1' },
+  tableHeaderText: { fontSize: 8, fontWeight: 'bold', color: '#475569', textTransform: 'uppercase', letterSpacing: 0.5 },
+  
+  checkRow: { flexDirection: 'row', borderBottomWidth: 1, borderBottomColor: '#e2e8f0', paddingVertical: 10, paddingHorizontal: 10 },
+  
+  // Table Columns
+  colStatus: { width: '12%', justifyContent: 'center' },
+  colCheck: { width: '35%', paddingRight: 8 },
+  colImpact: { width: '13%' },
+  colRemediation: { flex: 1 },
+  
+  // Text inside tables
+  checkName: { fontSize: 9, color: '#1e293b', fontWeight: 'bold', lineHeight: 1.4 },
+  checkRemediation: { fontSize: 9, color: '#475569', lineHeight: 1.4 },
+  
+  // Badges
+  badge: { paddingHorizontal: 5, paddingVertical: 3, borderRadius: 4, alignSelf: 'flex-start' },
+  badgeText: { fontSize: 7, fontWeight: 'bold', textTransform: 'uppercase' },
+  
+  badgePassBg: { backgroundColor: '#dcfce7' },
+  badgePassText: { color: '#166534' },
+  
+  badgeFailBg: { backgroundColor: '#fee2e2' },
+  badgeFailText: { color: '#991b1b' },
+  
+  badgeImpactCritBg: { backgroundColor: '#fecaca' },
+  badgeImpactCritText: { color: '#991b1b' },
+  
+  badgeImpactHighBg: { backgroundColor: '#ffedd5' },
+  badgeImpactHighText: { color: '#9a3412' },
+  
+  badgeImpactLowBg: { backgroundColor: '#f1f5f9' },
+  badgeImpactLowText: { color: '#475569' }
 });
+
+const getImpactBadge = (impact: string) => {
+  const i = impact?.toLowerCase() || '';
+  if (i === 'critical') return { bg: styles.badgeImpactCritBg, text: styles.badgeImpactCritText };
+  if (i === 'high') return { bg: styles.badgeImpactHighBg, text: styles.badgeImpactHighText };
+  return { bg: styles.badgeImpactLowBg, text: styles.badgeImpactLowText };
+};
 
 export const ReportPDF = ({ data }: { data: any }) => {
   const { report } = data;
   
   return (
     <Document>
+      {/* Cover Page & Executive Summary */}
       <Page size="A4" style={styles.page}>
-        <View>
-          <Text style={styles.header}>Website Audit Report</Text>
+        <View style={styles.headerSection}>
+          <Text style={styles.header}>G99 WebAudit Report</Text>
           <Text style={styles.url}>{data.url}</Text>
         </View>
         
-        <View style={styles.scoreContainer}>
-          <Text style={styles.scoreText}>{report.overallScore}</Text>
-          <Text style={styles.scoreLabel}>Overall G99 WebAudit Score (out of 100)</Text>
+        <View style={styles.scoreWrapper}>
+          <Text style={[styles.scoreText, { color: report.overallScore >= 90 ? '#16a34a' : report.overallScore >= 70 ? '#d97706' : '#dc2626' }]}>
+            {report.overallScore}
+          </Text>
+          <Text style={styles.scoreLabel}>OVERALL WEBSITE SCORE</Text>
         </View>
         
-        <View>
+        <View style={styles.contentArea}>
           <Text style={styles.sectionTitle}>Executive Summary</Text>
-          <Text style={[styles.text, { fontWeight: 'bold', marginTop: 10 }]}>Top Strengths:</Text>
-          {report.executiveSummary.topStrengths.map((str: string, i: number) => (
-            <View key={i} style={styles.bullet}>
-              <Text style={styles.bulletPoint}>•</Text>
-              <Text style={styles.bulletText}>{str}</Text>
-            </View>
-          ))}
+          
+          <View style={styles.listGroup}>
+            <Text style={[styles.listHeading, { color: '#16a34a' }]}>Top Strengths</Text>
+            {report.executiveSummary.topStrengths.map((str: string, i: number) => (
+              <View key={i} style={styles.bullet}>
+                <Text style={[styles.bulletPoint, { color: '#16a34a' }]}>✓</Text>
+                <Text style={styles.bulletText}>{str}</Text>
+              </View>
+            ))}
+          </View>
 
-          <Text style={[styles.text, { fontWeight: 'bold', marginTop: 15, color: '#ef4444' }]}>Priority Fixes:</Text>
-          {report.executiveSummary.priorityFixes.map((fix: string, i: number) => (
-            <View key={i} style={styles.bullet}>
-              <Text style={[styles.bulletPoint, { color: '#ef4444' }]}>•</Text>
-              <Text style={styles.bulletText}>{fix}</Text>
-            </View>
-          ))}
+          <View style={[styles.listGroup, { marginTop: 20 }]}>
+            <Text style={[styles.listHeading, { color: '#dc2626' }]}>Priority Fixes</Text>
+            {report.executiveSummary.priorityFixes.map((fix: string, i: number) => (
+              <View key={i} style={styles.bullet}>
+                <Text style={[styles.bulletPoint, { color: '#dc2626' }]}>×</Text>
+                <Text style={styles.bulletText}>{fix}</Text>
+              </View>
+            ))}
+          </View>
         </View>
       </Page>
 
-      {/* Detailed Categories Page(s) */}
+      {/* Detailed Categories Pages */}
       <Page size="A4" style={styles.page}>
-        <Text style={[styles.header, { marginBottom: 30 }]}>Detailed Category Audits</Text>
+        <View style={[styles.headerSection, { paddingBottom: 20, paddingTop: 30 }]}>
+          <Text style={[styles.header, { fontSize: 24 }]}>Detailed Category Audits</Text>
+          <Text style={styles.url}>Comprehensive breakdown of all AI engines</Text>
+        </View>
         
-        {Object.keys(report.rawResults).filter(category => report.rawResults[category as keyof typeof report.rawResults] != null).map(category => {
-          const result = report.rawResults[category as keyof typeof report.rawResults]!;
-          if (!result.checks || result.checks.length === 0) return null;
+        <View style={[styles.contentArea, { paddingTop: 30 }]}>
+          {Object.keys(report.rawResults).filter(category => report.rawResults[category as keyof typeof report.rawResults] != null).map((category, catIdx) => {
+            const result = report.rawResults[category as keyof typeof report.rawResults]!;
+            if (!result.checks || result.checks.length === 0) return null;
 
-          return (
-            <View key={category} style={{ marginBottom: 30, paddingBottom: 20, borderBottomWidth: 1, borderBottomColor: '#e2e8f0' }}>
-              <Text style={styles.categoryTitle}>{category} Analysis (Score: {result.score})</Text>
-              
-              {result.observations && result.observations.length > 0 && (
-                <View style={{ marginBottom: 10 }}>
-                  <Text style={[styles.text, { fontWeight: 'bold' }]}>Observations:</Text>
-                  {result.observations.map((obs: string, i: number) => (
-                    <Text key={i} style={styles.text}>• {obs}</Text>
-                  ))}
+            return (
+              <View key={category} style={styles.categoryBlock} break={catIdx > 0}>
+                <View style={styles.categoryHeader}>
+                  <Text style={styles.categoryTitle}>{category} Analysis</Text>
+                  <Text style={styles.categoryScore}>{result.score}/100</Text>
                 </View>
-              )}
+                
+                {result.observations && result.observations.length > 0 && (
+                  <View style={styles.listGroup} wrap={false}>
+                    <Text style={[styles.listHeading, { color: '#475569' }]}>Key Observations</Text>
+                    {result.observations.map((obs: string, i: number) => (
+                      <View key={`obs-${i}`} style={styles.bullet}>
+                        <Text style={[styles.bulletPoint, { color: '#94a3b8' }]}>•</Text>
+                        <Text style={styles.bulletText}>{obs}</Text>
+                      </View>
+                    ))}
+                  </View>
+                )}
 
-              {result.issues && result.issues.length > 0 && (
-                <View style={{ marginBottom: 10 }}>
-                  <Text style={[styles.text, { fontWeight: 'bold', color: '#ef4444' }]}>Issues:</Text>
-                  {result.issues.map((iss: string, i: number) => (
-                    <Text key={i} style={styles.text}>• {iss}</Text>
-                  ))}
-                </View>
-              )}
+                {result.issues && result.issues.length > 0 && (
+                  <View style={styles.listGroup} wrap={false}>
+                    <Text style={[styles.listHeading, { color: '#dc2626' }]}>Issues Found</Text>
+                    {result.issues.map((iss: string, i: number) => (
+                      <View key={`iss-${i}`} style={styles.bullet}>
+                        <Text style={[styles.bulletPoint, { color: '#f87171' }]}>•</Text>
+                        <Text style={styles.bulletText}>{iss}</Text>
+                      </View>
+                    ))}
+                  </View>
+                )}
 
-              {result.recommendations && result.recommendations.length > 0 && (
-                <View style={{ marginBottom: 15 }}>
-                  <Text style={[styles.text, { fontWeight: 'bold', color: '#22c55e' }]}>Recommendations:</Text>
-                  {result.recommendations.map((rec: string, i: number) => (
-                    <Text key={i} style={styles.text}>• {rec}</Text>
-                  ))}
+                {result.recommendations && result.recommendations.length > 0 && (
+                  <View style={styles.listGroup} wrap={false}>
+                    <Text style={[styles.listHeading, { color: '#16a34a' }]}>Actionable Recommendations</Text>
+                    {result.recommendations.map((rec: string, i: number) => (
+                      <View key={`rec-${i}`} style={styles.bullet}>
+                        <Text style={[styles.bulletPoint, { color: '#4ade80' }]}>•</Text>
+                        <Text style={styles.bulletText}>{rec}</Text>
+                      </View>
+                    ))}
+                  </View>
+                )}
+                
+                <View style={styles.tableContainer}>
+                  <View style={styles.tableHeader}>
+                    <Text style={[styles.tableHeaderText, styles.colStatus]}>Status</Text>
+                    <Text style={[styles.tableHeaderText, styles.colCheck]}>Audit Check</Text>
+                    <Text style={[styles.tableHeaderText, styles.colImpact]}>Impact</Text>
+                    <Text style={[styles.tableHeaderText, styles.colRemediation]}>Remediation</Text>
+                  </View>
+                  
+                  {result.checks.map((check: any, idx: number) => {
+                    const impactStyle = getImpactBadge(check.impact);
+                    return (
+                      <View key={`chk-${idx}`} style={[styles.checkRow, { backgroundColor: idx % 2 === 0 ? '#ffffff' : '#f8fafc' }]} wrap={false}>
+                        <View style={styles.colStatus}>
+                          <View style={[styles.badge, check.passed ? styles.badgePassBg : styles.badgeFailBg]}>
+                            <Text style={[styles.badgeText, check.passed ? styles.badgePassText : styles.badgeFailText]}>
+                              {check.passed ? 'PASS' : 'FAIL'}
+                            </Text>
+                          </View>
+                        </View>
+                        <View style={styles.colCheck}>
+                          <Text style={styles.checkName}>{check.checkName}</Text>
+                        </View>
+                        <View style={styles.colImpact}>
+                          {!check.passed && check.impact ? (
+                            <View style={[styles.badge, impactStyle.bg]}>
+                              <Text style={[styles.badgeText, impactStyle.text]}>{check.impact}</Text>
+                            </View>
+                          ) : <Text style={styles.checkRemediation}>—</Text>}
+                        </View>
+                        <View style={styles.colRemediation}>
+                          <Text style={styles.checkRemediation}>
+                            {check.passed ? '—' : check.remediation || 'No remediation provided.'}
+                          </Text>
+                        </View>
+                      </View>
+                    );
+                  })}
                 </View>
-              )}
-              
-              <Text style={[styles.text, { fontWeight: 'bold', marginTop: 10, color: '#334155' }]}>Detailed Checks:</Text>
-              <View style={styles.tableHeader}>
-                <Text style={[styles.tableHeaderText, { width: 60 }]}>Status</Text>
-                <Text style={[styles.tableHeaderText, { width: '35%' }]}>Check</Text>
-                <Text style={[styles.tableHeaderText, { width: 60 }]}>Impact</Text>
-                <Text style={[styles.tableHeaderText, { flex: 1 }]}>Remediation</Text>
               </View>
-              
-              {result.checks.map((check: any, idx: number) => (
-                <View key={idx} style={styles.checkRow} wrap={false}>
-                  <Text style={[styles.checkStatus, { color: check.passed ? '#22c55e' : '#ef4444' }]}>
-                    {check.passed ? 'PASS' : 'FAIL'}
-                  </Text>
-                  <Text style={styles.checkName}>{check.checkName}</Text>
-                  <Text style={[styles.checkImpact, { color: check.impact === 'critical' || check.impact === 'high' ? '#ef4444' : '#f59e0b' }]}>
-                    {!check.passed && check.impact ? check.impact : ''}
-                  </Text>
-                  <Text style={styles.checkRemediation}>
-                    {check.passed ? '—' : check.remediation || 'No remediation provided.'}
-                  </Text>
-                </View>
-              ))}
-            </View>
-          );
-        })}
+            );
+          })}
+        </View>
       </Page>
     </Document>
   );
