@@ -1,0 +1,39 @@
+2026-07-03T03:29:36.010Z - MasterDesignAgent Error: Invalid character
+InvalidCharacterError: Invalid character
+    at atob (node:buffer:1306:13)
+    at convertBase64ToUint8Array (/Users/apple/Desktop/design-audit/node_modules/@ai-sdk/provider-utils/dist/index.js:59:24)
+    at detectMediaTypeBySignatures (/Users/apple/Desktop/design-audit/node_modules/@ai-sdk/provider-utils/dist/index.js:440:53)
+    at detectMediaType (/Users/apple/Desktop/design-audit/node_modules/@ai-sdk/provider-utils/dist/index.js:477:10)
+    at convertPartToLanguageModelPart (/Users/apple/Desktop/design-audit/node_modules/ai/dist/index.js:1647:28)
+    at <anonymous> (/Users/apple/Desktop/design-audit/node_modules/ai/dist/index.js:1397:26)
+    at Array.map (<anonymous>)
+    at convertToLanguageModelMessage (/Users/apple/Desktop/design-audit/node_modules/ai/dist/index.js:1397:12)
+    at <anonymous> (/Users/apple/Desktop/design-audit/node_modules/ai/dist/index.js:1299:20)
+    at Array.map (<anonymous>)
+
+2026-07-03T03:30:31.476Z - MasterDesignAgent Error: Failed after 4 attempts. Last error: AI_APICallError: You exceeded your current quota, please check your plan and billing details. For more information on this error, head to: https://ai.google.dev/gemini-api/docs/rate-limits. To monitor your current usage, head to: https://ai.dev/rate-limit. 
+* Quota exceeded for metric: generativelanguage.googleapis.com/generate_content_free_tier_input_token_count, limit: 0, model: gemini-2.0-flash
+* Quota exceeded for metric: generativelanguage.googleapis.com/generate_content_free_tier_requests, limit: 0, model: gemini-2.0-flash
+* Quota exceeded for metric: generativelanguage.googleapis.com/generate_content_free_tier_requests, limit: 0, model: gemini-2.0-flash
+Please retry in 28.584282504s.
+AI_RetryError: Failed after 4 attempts. Last error: AI_APICallError: You exceeded your current quota, please check your plan and billing details. For more information on this error, head to: https://ai.google.dev/gemini-api/docs/rate-limits. To monitor your current usage, head to: https://ai.dev/rate-limit. 
+* Quota exceeded for metric: generativelanguage.googleapis.com/generate_content_free_tier_input_token_count, limit: 0, model: gemini-2.0-flash
+* Quota exceeded for metric: generativelanguage.googleapis.com/generate_content_free_tier_requests, limit: 0, model: gemini-2.0-flash
+* Quota exceeded for metric: generativelanguage.googleapis.com/generate_content_free_tier_requests, limit: 0, model: gemini-2.0-flash
+Please retry in 28.584282504s.
+    at createRetryError (/Users/apple/Desktop/design-audit/node_modules/ai/dist/index.js:2689:54)
+    at retryWithExponentialBackoffInternal (/Users/apple/Desktop/design-audit/node_modules/@ai-sdk/provider-utils/dist/index.js:3115:13)
+    at process.processTicksAndRejections (node:internal/process/task_queues:103:5)
+    at async generateObject (/Users/apple/Desktop/design-audit/node_modules/ai/dist/index.js:12299:28)
+    at async MasterDesignAgent.analyze (/Users/apple/Desktop/design-audit/src/agents/MasterDesignAgent.ts:44:26)
+    at async test (/Users/apple/Desktop/design-audit/test-agent.ts:19:17)
+
+2026-07-03T03:31:36.343Z - MasterDesignAgent Error: No object generated: response did not match schema.
+AI_NoObjectGeneratedError: No object generated: response did not match schema.
+    at parseAndValidateObjectResult (/Users/apple/Desktop/design-audit/node_modules/ai/dist/index.js:12027:11)
+    at process.processTicksAndRejections (node:internal/process/task_queues:103:5)
+    at async parseAndValidateObjectResultWithRepair (/Users/apple/Desktop/design-audit/node_modules/ai/dist/index.js:12040:12)
+    at async generateObject (/Users/apple/Desktop/design-audit/node_modules/ai/dist/index.js:12361:21)
+    at async MasterDesignAgent.analyze (/Users/apple/Desktop/design-audit/src/agents/MasterDesignAgent.ts:44:26)
+    at async test (/Users/apple/Desktop/design-audit/test-agent.ts:19:17)
+

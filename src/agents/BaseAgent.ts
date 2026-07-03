@@ -1,3 +1,10 @@
+export interface AuditCheck {
+  checkName: string;
+  passed: boolean;
+  remediation?: string;
+  impact?: 'low' | 'medium' | 'high' | 'critical';
+}
+
 export interface AgentResult {
   observations: string[];
   issues: string[];
@@ -5,6 +12,7 @@ export interface AgentResult {
   severity: 'low' | 'medium' | 'high' | 'critical';
   screenshots: string[];
   score: number;
+  checks: AuditCheck[];
 }
 
 export abstract class BaseAgent {

@@ -11,18 +11,26 @@
   "dependencies": {
     "@ai-sdk/anthropic": "^4.0.5",
     "@ai-sdk/google": "^4.0.6",
-    "@ai-sdk/openai": "^4.0.5",
+    "@ai-sdk/groq": "^4.0.5",
+    "@ai-sdk/openai": "^4.0.7",
     "@clerk/nextjs": "^7.5.12",
+    "@react-pdf/renderer": "^4.5.1",
+    "@stripe/stripe-js": "^9.9.0",
     "@supabase/supabase-js": "^2.110.0",
     "@upstash/qstash": "^2.11.1",
     "ai": "^7.0.11",
+    "cheerio": "^1.2.0",
+    "clsx": "^2.1.1",
     "framer-motion": "^12.42.2",
+    "lucide-react": "^1.23.0",
     "next": "16.2.10",
     "playwright": "^1.61.1",
     "react": "19.2.4",
     "react-dom": "19.2.4",
     "recharts": "^3.9.1",
-    "stripe": "^22.3.0"
+    "stripe": "^22.3.0",
+    "tailwind-merge": "^3.6.0",
+    "zod": "^4.4.3"
   },
   "devDependencies": {
     "@tailwindcss/postcss": "^4",
