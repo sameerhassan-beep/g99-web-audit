@@ -78,7 +78,7 @@ export async function POST(req: NextRequest) {
         
         if (!errorHit) send({ type: 'step_complete', step: 'batch1' });
 
-        send({ type: 'status', message: 'Running Deep Mega-Prompt Analysis (Vision, UX, CRO, Brand, Content, Competitor)...' });
+        send({ type: 'status', message: 'Running Deep Mega-Prompt Analysis (Vision, UX, CRO, Brand, Content, Market)...' });
         
         const masterParams = {
           screenshots: {
@@ -97,12 +97,12 @@ export async function POST(req: NextRequest) {
         const mobileResult = masterResultRaw ? masterResultRaw.mobile : null;
         const brandResult = masterResultRaw ? masterResultRaw.brand : null;
         const contentResult = masterResultRaw ? masterResultRaw.content : null;
-        const competitorResult = masterResultRaw ? masterResultRaw.competitor : null;
+        const marketResult = masterResultRaw ? masterResultRaw.market : null;
 
         if (masterResultRaw) {
           const simulatedAgents = [
             'VisionAgent', 'UXAgent', 'MobileAgent', 'CROAgent', 
-            'BrandAgent', 'ContentAgent', 'CompetitorAgent'
+            'BrandAgent', 'ContentAgent', 'MarketAgent'
           ];
           for (const sa of simulatedAgents) {
             send({ type: 'agent_complete', agent: sa });
@@ -125,7 +125,7 @@ export async function POST(req: NextRequest) {
           performance: perfResult,
           security: secResult,
           mobile: mobileResult,
-          competitor: competitorResult
+          market: marketResult
         });
 
         // Save screenshots to filesystem

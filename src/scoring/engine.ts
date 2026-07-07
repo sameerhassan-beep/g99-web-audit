@@ -11,7 +11,7 @@ export interface AuditResults {
   performance: AgentResult;
   security: AgentResult;
   mobile: AgentResult;
-  competitor: AgentResult;
+  market: AgentResult;
 }
 
 export interface ScoredAuditReport {
@@ -39,7 +39,7 @@ export class ScoringEngine {
     performance: 10,  // 10%
     security: 10,     // 10%
     mobile: 5,        // 5%
-    competitor: 5     // 5%
+    market: 5     // 5%
   };
 
   public generateReport(results: AuditResults): ScoredAuditReport {

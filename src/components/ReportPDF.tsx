@@ -2,95 +2,135 @@ import React from 'react';
 import { Document, Page, Text, View, StyleSheet } from '@react-pdf/renderer';
 
 const styles = StyleSheet.create({
-  page: { flexDirection: 'column', backgroundColor: '#ffffff', paddingTop: 30, paddingBottom: 40, paddingHorizontal: 0, fontFamily: 'Helvetica' },
+  page: { 
+    flexDirection: 'column', 
+    backgroundColor: '#FAFAFC', 
+    paddingTop: 40, 
+    paddingBottom: 50, 
+    paddingHorizontal: 0, 
+    fontFamily: 'Helvetica' 
+  },
   
   // Header / Cover styling
   headerSection: {
-    backgroundColor: '#1e293b',
-    padding: 30,
-    paddingTop: 40,
-    paddingBottom: 40,
-    borderBottomWidth: 4,
-    borderBottomColor: '#3b82f6',
+    backgroundColor: '#FFFFFF',
+    padding: 40,
+    marginHorizontal: 30,
+    borderRadius: 12,
+    marginBottom: 30,
+    borderWidth: 1,
+    borderColor: '#E5E7EB',
   },
-  header: { fontSize: 24, marginBottom: 8, fontWeight: 'bold', color: '#ffffff', letterSpacing: -0.5 },
-  url: { fontSize: 11, color: '#94a3b8', fontWeight: 'medium' },
+  header: { fontSize: 28, marginBottom: 8, fontWeight: 'bold', color: '#111827', letterSpacing: -0.5 },
+  url: { fontSize: 12, color: '#6B7280', fontWeight: 'medium' },
   
   // Score styling
   scoreWrapper: {
     alignItems: 'center',
-    marginVertical: 30,
-    padding: 24,
-    backgroundColor: '#f8fafc',
+    padding: 30,
+    backgroundColor: '#FFFFFF',
     marginHorizontal: 30,
-    borderRadius: 8,
+    borderRadius: 12,
+    borderWidth: 1,
+    borderColor: '#E5E7EB',
+    marginBottom: 30,
   },
-  scoreText: { fontSize: 60, fontWeight: 'bold', color: '#0f172a' },
-  scoreLabel: { fontSize: 10, color: '#64748b', marginTop: 10, textTransform: 'uppercase', letterSpacing: 1, fontWeight: 'bold' },
+  scoreText: { fontSize: 72, fontWeight: 'bold' },
+  scoreLabel: { fontSize: 11, color: '#6B7280', marginTop: 10, textTransform: 'uppercase', letterSpacing: 1.5, fontWeight: 'bold' },
   
   // Content Sections
   contentArea: { paddingHorizontal: 30, paddingBottom: 20 },
-  sectionTitle: { fontSize: 16, marginTop: 10, marginBottom: 16, color: '#0f172a', fontWeight: 'bold', borderBottomWidth: 2, borderBottomColor: '#cbd5e1', paddingBottom: 8 },
+  sectionTitle: { fontSize: 18, marginBottom: 20, color: '#111827', fontWeight: 'bold' },
   
+  // Executive Summary Blocks
+  execBlock: {
+    backgroundColor: '#FFFFFF',
+    padding: 24,
+    borderRadius: 12,
+    marginBottom: 20,
+    borderWidth: 1,
+    borderColor: '#E5E7EB',
+  },
+
   // Category Blocks
   categoryBlock: {
-    marginBottom: 30,
+    marginBottom: 40,
   },
   categoryHeader: {
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
-    borderBottomWidth: 2,
-    borderBottomColor: '#e2e8f0',
-    paddingBottom: 8,
+    paddingBottom: 16,
     marginBottom: 16,
-    marginTop: 20,
+    borderBottomWidth: 2,
+    borderBottomColor: '#E5E7EB',
   },
-  categoryTitle: { fontSize: 15, fontWeight: 'bold', color: '#0f172a', textTransform: 'capitalize' },
-  categoryScore: { fontSize: 12, fontWeight: 'bold', color: '#3b82f6', backgroundColor: '#eff6ff', paddingHorizontal: 8, paddingVertical: 4, borderRadius: 4 },
+  categoryTitle: { fontSize: 18, fontWeight: 'bold', color: '#111827', textTransform: 'capitalize' },
+  categoryScore: { 
+    fontSize: 14, 
+    fontWeight: 'bold', 
+    color: '#4F46E5', 
+    backgroundColor: '#EEF2FF', 
+    paddingHorizontal: 12, 
+    paddingVertical: 6, 
+    borderRadius: 6 
+  },
   
   // Lists
-  listGroup: { marginBottom: 16 },
-  listHeading: { fontSize: 10, fontWeight: 'bold', marginBottom: 6, textTransform: 'uppercase', letterSpacing: 0.5 },
-  bullet: { flexDirection: 'row', marginBottom: 6, alignItems: 'flex-start' },
-  bulletPoint: { width: 12, fontSize: 10, fontWeight: 'bold', marginTop: -1 },
-  bulletText: { flex: 1, fontSize: 9, lineHeight: 1.5, color: '#475569' },
+  listGroup: { marginBottom: 20 },
+  listHeading: { fontSize: 11, fontWeight: 'bold', marginBottom: 10, textTransform: 'uppercase', letterSpacing: 0.5 },
+  bullet: { flexDirection: 'row', marginBottom: 8, alignItems: 'flex-start' },
+  bulletPoint: { width: 14, fontSize: 11, fontWeight: 'bold', marginTop: -1 },
+  bulletText: { flex: 1, fontSize: 10, lineHeight: 1.6, color: '#4B5563' },
   
   // Tables
-  tableContainer: { marginTop: 12 },
-  tableHeader: { flexDirection: 'row', backgroundColor: '#f1f5f9', paddingVertical: 8, paddingHorizontal: 10, borderBottomWidth: 1, borderBottomColor: '#cbd5e1' },
-  tableHeaderText: { fontSize: 8, fontWeight: 'bold', color: '#475569', textTransform: 'uppercase', letterSpacing: 0.5 },
+  tableContainer: { marginTop: 16, borderWidth: 1, borderColor: '#F3F4F6' },
+  tableHeader: { 
+    flexDirection: 'row', 
+    backgroundColor: '#F9FAFB', 
+    paddingVertical: 12, 
+    paddingHorizontal: 12, 
+    borderBottomWidth: 1, 
+    borderBottomColor: '#E5E7EB' 
+  },
+  tableHeaderText: { fontSize: 9, fontWeight: 'bold', color: '#6B7280', textTransform: 'uppercase', letterSpacing: 0.5 },
   
-  checkRow: { flexDirection: 'row', borderBottomWidth: 1, borderBottomColor: '#e2e8f0', paddingVertical: 10, paddingHorizontal: 10 },
+  checkRow: { 
+    flexDirection: 'row', 
+    borderBottomWidth: 1, 
+    borderBottomColor: '#F3F4F6', 
+    paddingVertical: 12, 
+    paddingHorizontal: 12 
+  },
   
-  // Table Columns
-  colStatus: { width: '12%', justifyContent: 'center' },
-  colCheck: { width: '35%', paddingRight: 8 },
-  colImpact: { width: '13%' },
-  colRemediation: { flex: 1 },
+  // Adjusted Column Widths to prevent overlap
+  colStatus: { width: '15%', justifyContent: 'center' },
+  colCheck: { width: '35%', paddingRight: 12 },
+  colImpact: { width: '15%', paddingRight: 8 },
+  colRemediation: { width: '35%' },
   
   // Text inside tables
-  checkName: { fontSize: 9, color: '#1e293b', fontWeight: 'bold', lineHeight: 1.4 },
-  checkRemediation: { fontSize: 9, color: '#475569', lineHeight: 1.4 },
+  checkName: { fontSize: 9.5, color: '#111827', fontWeight: 'bold', lineHeight: 1.5 },
+  checkRemediation: { fontSize: 9.5, color: '#4B5563', lineHeight: 1.5 },
   
   // Badges
-  badge: { paddingHorizontal: 5, paddingVertical: 3, borderRadius: 4, alignSelf: 'flex-start' },
-  badgeText: { fontSize: 7, fontWeight: 'bold', textTransform: 'uppercase' },
+  badge: { paddingHorizontal: 6, paddingVertical: 4, borderRadius: 4, alignSelf: 'flex-start' },
+  badgeText: { fontSize: 7.5, fontWeight: 'bold', textTransform: 'uppercase', letterSpacing: 0.5 },
   
-  badgePassBg: { backgroundColor: '#dcfce7' },
+  badgePassBg: { backgroundColor: '#DCFCE7' },
   badgePassText: { color: '#166534' },
   
-  badgeFailBg: { backgroundColor: '#fee2e2' },
-  badgeFailText: { color: '#991b1b' },
+  badgeFailBg: { backgroundColor: '#FEE2E2' },
+  badgeFailText: { color: '#991B1B' },
   
-  badgeImpactCritBg: { backgroundColor: '#fecaca' },
-  badgeImpactCritText: { color: '#991b1b' },
+  badgeImpactCritBg: { backgroundColor: '#FECACA' },
+  badgeImpactCritText: { color: '#991B1B' },
   
-  badgeImpactHighBg: { backgroundColor: '#ffedd5' },
-  badgeImpactHighText: { color: '#9a3412' },
+  badgeImpactHighBg: { backgroundColor: '#FFEDD5' },
+  badgeImpactHighText: { color: '#9A3412' },
   
-  badgeImpactLowBg: { backgroundColor: '#f1f5f9' },
-  badgeImpactLowText: { color: '#475569' }
+  badgeImpactLowBg: { backgroundColor: '#F3F4F6' },
+  badgeImpactLowText: { color: '#4B5563' }
 });
 
 const getImpactBadge = (impact: string) => {
@@ -113,7 +153,7 @@ export const ReportPDF = ({ data }: { data: any }) => {
         </View>
         
         <View style={styles.scoreWrapper}>
-          <Text style={[styles.scoreText, { color: report.overallScore >= 90 ? '#16a34a' : report.overallScore >= 70 ? '#d97706' : '#dc2626' }]}>
+          <Text style={[styles.scoreText, { color: report.overallScore >= 90 ? '#10B981' : report.overallScore >= 70 ? '#F59E0B' : '#EF4444' }]}>
             {report.overallScore}
           </Text>
           <Text style={styles.scoreLabel}>OVERALL WEBSITE SCORE</Text>
@@ -122,21 +162,21 @@ export const ReportPDF = ({ data }: { data: any }) => {
         <View style={styles.contentArea}>
           <Text style={styles.sectionTitle}>Executive Summary</Text>
           
-          <View style={styles.listGroup}>
-            <Text style={[styles.listHeading, { color: '#16a34a' }]}>Top Strengths</Text>
+          <View style={styles.execBlock}>
+            <Text style={[styles.listHeading, { color: '#10B981', fontSize: 13, marginBottom: 14 }]}>Top Strengths</Text>
             {report.executiveSummary.topStrengths.map((str: string, i: number) => (
               <View key={i} style={styles.bullet}>
-                <Text style={[styles.bulletPoint, { color: '#16a34a' }]}>✓</Text>
+                <Text style={[styles.bulletPoint, { color: '#10B981' }]}>✓</Text>
                 <Text style={styles.bulletText}>{str}</Text>
               </View>
             ))}
           </View>
 
-          <View style={[styles.listGroup, { marginTop: 20 }]}>
-            <Text style={[styles.listHeading, { color: '#dc2626' }]}>Priority Fixes</Text>
+          <View style={styles.execBlock}>
+            <Text style={[styles.listHeading, { color: '#EF4444', fontSize: 13, marginBottom: 14 }]}>Priority Fixes</Text>
             {report.executiveSummary.priorityFixes.map((fix: string, i: number) => (
               <View key={i} style={styles.bullet}>
-                <Text style={[styles.bulletPoint, { color: '#dc2626' }]}>×</Text>
+                <Text style={[styles.bulletPoint, { color: '#EF4444' }]}>×</Text>
                 <Text style={styles.bulletText}>{fix}</Text>
               </View>
             ))}
@@ -146,12 +186,12 @@ export const ReportPDF = ({ data }: { data: any }) => {
 
       {/* Detailed Categories Pages */}
       <Page size="A4" style={styles.page}>
-        <View style={[styles.headerSection, { paddingBottom: 20, paddingTop: 30 }]}>
-          <Text style={[styles.header, { fontSize: 24 }]}>Detailed Category Audits</Text>
+        <View style={[styles.headerSection, { paddingBottom: 30 }]}>
+          <Text style={styles.header}>Detailed Category Audits</Text>
           <Text style={styles.url}>Comprehensive breakdown of all AI engines</Text>
         </View>
         
-        <View style={[styles.contentArea, { paddingTop: 30 }]}>
+        <View style={styles.contentArea}>
           {Object.keys(report.rawResults).filter(category => report.rawResults[category as keyof typeof report.rawResults] != null).map((category, catIdx) => {
             const result = report.rawResults[category as keyof typeof report.rawResults]!;
             if (!result.checks || result.checks.length === 0) return null;
@@ -165,10 +205,10 @@ export const ReportPDF = ({ data }: { data: any }) => {
                 
                 {result.observations && result.observations.length > 0 && (
                   <View style={styles.listGroup} wrap={false}>
-                    <Text style={[styles.listHeading, { color: '#475569' }]}>Key Observations</Text>
+                    <Text style={[styles.listHeading, { color: '#6B7280' }]}>Key Observations</Text>
                     {result.observations.map((obs: string, i: number) => (
                       <View key={`obs-${i}`} style={styles.bullet}>
-                        <Text style={[styles.bulletPoint, { color: '#94a3b8' }]}>•</Text>
+                        <Text style={[styles.bulletPoint, { color: '#9CA3AF' }]}>•</Text>
                         <Text style={styles.bulletText}>{obs}</Text>
                       </View>
                     ))}
@@ -177,10 +217,10 @@ export const ReportPDF = ({ data }: { data: any }) => {
 
                 {result.issues && result.issues.length > 0 && (
                   <View style={styles.listGroup} wrap={false}>
-                    <Text style={[styles.listHeading, { color: '#dc2626' }]}>Issues Found</Text>
+                    <Text style={[styles.listHeading, { color: '#EF4444' }]}>Issues Found</Text>
                     {result.issues.map((iss: string, i: number) => (
                       <View key={`iss-${i}`} style={styles.bullet}>
-                        <Text style={[styles.bulletPoint, { color: '#f87171' }]}>•</Text>
+                        <Text style={[styles.bulletPoint, { color: '#F87171' }]}>•</Text>
                         <Text style={styles.bulletText}>{iss}</Text>
                       </View>
                     ))}
@@ -189,10 +229,10 @@ export const ReportPDF = ({ data }: { data: any }) => {
 
                 {result.recommendations && result.recommendations.length > 0 && (
                   <View style={styles.listGroup} wrap={false}>
-                    <Text style={[styles.listHeading, { color: '#16a34a' }]}>Actionable Recommendations</Text>
+                    <Text style={[styles.listHeading, { color: '#10B981' }]}>Actionable Recommendations</Text>
                     {result.recommendations.map((rec: string, i: number) => (
                       <View key={`rec-${i}`} style={styles.bullet}>
-                        <Text style={[styles.bulletPoint, { color: '#4ade80' }]}>•</Text>
+                        <Text style={[styles.bulletPoint, { color: '#34D399' }]}>•</Text>
                         <Text style={styles.bulletText}>{rec}</Text>
                       </View>
                     ))}
@@ -210,7 +250,7 @@ export const ReportPDF = ({ data }: { data: any }) => {
                   {result.checks.map((check: any, idx: number) => {
                     const impactStyle = getImpactBadge(check.impact);
                     return (
-                      <View key={`chk-${idx}`} style={[styles.checkRow, { backgroundColor: idx % 2 === 0 ? '#ffffff' : '#f8fafc' }]} wrap={false}>
+                      <View key={`chk-${idx}`} style={[styles.checkRow, { backgroundColor: idx % 2 === 0 ? '#FFFFFF' : '#F9FAFB' }]} wrap={false}>
                         <View style={styles.colStatus}>
                           <View style={[styles.badge, check.passed ? styles.badgePassBg : styles.badgeFailBg]}>
                             <Text style={[styles.badgeText, check.passed ? styles.badgePassText : styles.badgeFailText]}>

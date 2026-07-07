@@ -53,7 +53,7 @@ You must evaluate the website across 7 distinct disciplines simultaneously:
 4. Mobile Responsiveness (touch targets, fluid layout, scaling)
 5. Brand Identity (consistency, personality, premium feel)
 6. Content & Copy (readability, microcopy, persuasion, skimmability)
-7. Competitor/Market (positioning, feature parity, differentiation)
+7. Market Analysis (positioning, feature parity, differentiation)
 
 CRITICAL INSTRUCTION: You MUST be extremely detailed. Do not give short bullet points. Every observation, issue, and recommendation MUST be a comprehensive, multi-sentence paragraph. Explain the 'why' and 'how' deeply. Act like a senior design consultant writing a $10,000 audit report. Do not hold back on pointing out generic or outdated elements. Give specific, actionable recommendations for each category.`,
         schema: z.object({
@@ -63,7 +63,7 @@ CRITICAL INSTRUCTION: You MUST be extremely detailed. Do not give short bullet p
           mobile: AgentResultSchema,
           brand: AgentResultSchema,
           content: AgentResultSchema,
-          competitor: AgentResultSchema
+          market: AgentResultSchema
         }),
         messages: [
           {

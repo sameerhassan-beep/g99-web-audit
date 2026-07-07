@@ -37,3 +37,13 @@ AI_NoObjectGeneratedError: No object generated: response did not match schema.
     at async MasterDesignAgent.analyze (/Users/apple/Desktop/design-audit/src/agents/MasterDesignAgent.ts:44:26)
     at async test (/Users/apple/Desktop/design-audit/test-agent.ts:19:17)
 
+2026-07-07T02:23:02.985Z - MasterDesignAgent Error: Failed after 4 attempts. Last error: AI_APICallError: This model is currently experiencing high demand. Spikes in demand are usually temporary. Please try again later.
+AI_RetryError: Failed after 4 attempts. Last error: AI_APICallError: This model is currently experiencing high demand. Spikes in demand are usually temporary. Please try again later.
+    at createRetryError (/Users/apple/Desktop/design-audit/.next/dev/server/chunks/node_modules_ai_dist_index_16zsbns.js:2804:58)
+    at retryWithExponentialBackoffInternal (/Users/apple/Desktop/design-audit/.next/dev/server/chunks/node_modules_@ai-sdk_provider-utils_dist_index_1afcz0a.js:3218:19)
+    at process.processTicksAndRejections (node:internal/process/task_queues:103:5)
+    at async generateObject (/Users/apple/Desktop/design-audit/.next/dev/server/chunks/node_modules_ai_dist_index_16zsbns.js:11832:32)
+    at async MasterDesignAgent.analyze (/Users/apple/Desktop/design-audit/.next/dev/server/chunks/[root-of-the-server]__1a6qczt._.js:917:32)
+    at async runAgent (/Users/apple/Desktop/design-audit/.next/dev/server/chunks/[root-of-the-server]__1a6qczt._.js:1080:37)
+    at async Object.start (/Users/apple/Desktop/design-audit/.next/dev/server/chunks/[root-of-the-server]__1a6qczt._.js:1131:41)
+
