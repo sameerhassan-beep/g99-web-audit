@@ -29,7 +29,13 @@ const AgentResultSchema = z.object({
     passed: z.boolean().describe('Whether the website passed this specific check.'),
     remediation: z.string().optional().describe('Highly detailed explanation of how to fix the issue if it failed.'),
     impact: z.enum(['low', 'medium', 'high', 'critical']).optional().describe('Impact of the issue.')
-  })).describe('A massive, exhaustive list of at least 25 to 30 highly specific checks performed in this category. Do not stop until you have at least 25 checks.')
+  })).describe('A massive, exhaustive list of at least 25 to 30 highly specific checks performed in this category. Do not stop until you have at least 25 checks.'),
+  markers: z.array(z.object({
+    x: z.number().describe('X coordinate percentage (0-100) on the page where this issue/recommendation is located.'),
+    y: z.number().describe('Y coordinate percentage (0-100) on the page where this issue/recommendation is located.'),
+    label: z.string().describe('Short label or title for the marker (e.g. "Contrast Issue", "Misaligned Button")'),
+    description: z.string().describe('Detailed description of what needs to be fixed at this location.')
+  })).optional().describe('Coordinates for visual markers to overlay on the screenshot. Only required for Vision and UX categories.')
 });
 
 export class MasterDesignAgent extends BaseAgent {
@@ -43,7 +49,7 @@ export class MasterDesignAgent extends BaseAgent {
     try {
       const { object } = await generateObject({
         model: getNextGoogleModel('gemini-flash-latest'),
-        maxRetries: 3,
+        maxRetries: 7,
         system: `You are an elite, agency-level Design, UX, and Strategy Team.
 Your goal is to conduct a relentless, high-end critique of the provided website screenshots (Desktop, Tablet, Mobile, FullPage).
 You must evaluate the website across 7 distinct disciplines simultaneously:
@@ -55,7 +61,8 @@ You must evaluate the website across 7 distinct disciplines simultaneously:
 6. Content & Copy (readability, microcopy, persuasion, skimmability)
 7. Market Analysis (positioning, feature parity, differentiation)
 
-CRITICAL INSTRUCTION: You MUST be extremely detailed. Do not give short bullet points. Every observation, issue, and recommendation MUST be a comprehensive, multi-sentence paragraph. Explain the 'why' and 'how' deeply. Act like a senior design consultant writing a $10,000 audit report. Do not hold back on pointing out generic or outdated elements. Give specific, actionable recommendations for each category.`,
+CRITICAL INSTRUCTION: You MUST be extremely detailed. Do not give short bullet points. Every observation, issue, and recommendation MUST be a comprehensive, multi-sentence paragraph. Explain the 'why' and 'how' deeply. Act like a senior design consultant writing a $10,000 audit report. Do not hold back on pointing out generic or outdated elements. Give specific, actionable recommendations for each category.
+For the Vision and UX categories, output 3-5 visual markers identifying the exact locations of key issues. Use estimated percentage coordinates (x=0 to 100 left-to-right, y=0 to 100 top-to-bottom) based on your spatial understanding of the screenshot provided.`,
         schema: z.object({
           vision: AgentResultSchema,
           ux: AgentResultSchema,

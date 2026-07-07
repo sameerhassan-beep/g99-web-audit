@@ -13,6 +13,7 @@ export interface AgentResult {
   screenshots: string[];
   score: number;
   checks: AuditCheck[];
+  markers?: { x: number; y: number; label: string; description: string; }[];
 }
 
 export abstract class BaseAgent {

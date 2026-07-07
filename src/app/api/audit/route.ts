@@ -8,6 +8,8 @@ import { MasterDesignAgent } from '@/agents/MasterDesignAgent';
 import { NextRequest, NextResponse } from 'next/server';
 import fs from 'fs';
 import path from 'path';
+import { BrandAgent } from '@/agents/BrandAgent';
+import { fetchPSI } from '@/lib/psi';
 
 export const maxDuration = 300; // Allow max duration for scraping
 
@@ -69,16 +71,7 @@ export async function POST(req: NextRequest) {
           }
         }
 
-        send({ type: 'status', message: 'Analyzing Code & DOM Structure...' });
-        
-        const seoResult = await runAgent('SEOAgent', seoAgent, { html: scrapeData.html });
-        const a11yResult = await runAgent('AccessibilityAgent', a11yAgent, { html: scrapeData.html });
-        const perfResult = await runAgent('PerformanceAgent', performanceAgent, { html: scrapeData.html });
-        const secResult = await runAgent('SecurityAgent', securityAgent, { html: scrapeData.html });
-        
-        if (!errorHit) send({ type: 'step_complete', step: 'batch1' });
-
-        send({ type: 'status', message: 'Running Deep Mega-Prompt Analysis (Vision, UX, CRO, Brand, Content, Market)...' });
+        send({ type: 'status', message: 'Running Real PSI Analysis & Deep Mega-Prompt Analysis...' });
         
         const masterParams = {
           screenshots: {
@@ -89,7 +82,23 @@ export async function POST(req: NextRequest) {
           }
         };
 
-        const masterResultRaw = await runAgent('MasterDesignAgent', masterAgent, masterParams);
+        // Run PSI and MasterDesignAgent concurrently
+        const [psiData, masterResultRaw] = await Promise.all([
+          fetchPSI(url).catch(e => {
+            console.error('PSI Error:', e);
+            return null;
+          }),
+          runAgent('MasterDesignAgent', masterAgent, masterParams)
+        ]);
+
+        if (psiData) {
+           send({ type: 'agent_complete', agent: 'PerformanceAgent' });
+           send({ type: 'agent_complete', agent: 'AccessibilityAgent' });
+           send({ type: 'agent_complete', agent: 'SEOAgent' });
+           send({ type: 'agent_complete', agent: 'SecurityAgent' });
+           if (!errorHit) send({ type: 'step_complete', step: 'batch1' });
+        }
+
 
         const visionResult = masterResultRaw ? masterResultRaw.vision : null;
         const uxResult = masterResultRaw ? masterResultRaw.ux : null;
@@ -115,15 +124,15 @@ export async function POST(req: NextRequest) {
         send({ type: 'status', message: 'Generating final audit report...' });
         const scoringEngine = new ScoringEngine();
         const finalReport = scoringEngine.generateReport({
-          seo: seoResult,
-          accessibility: a11yResult,
+          seo: psiData ? psiData.seo : null,
+          accessibility: psiData ? psiData.accessibility : null,
           vision: visionResult,
           ux: uxResult,
           cro: croResult,
           brand: brandResult,
           content: contentResult,
-          performance: perfResult,
-          security: secResult,
+          performance: psiData ? psiData.performance : null,
+          security: psiData ? psiData.bestPractices : null,
           mobile: mobileResult,
           market: marketResult
         });
