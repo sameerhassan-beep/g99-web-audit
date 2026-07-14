@@ -19,7 +19,7 @@ export async function fetchPSI(url: string) {
 
   // Helper to map Lighthouse category to AgentResult
   const mapCategory = (categoryData: any, categoryId: string): AgentResult => {
-    if (!categoryData) return { score: 0, observations: [], issues: [], recommendations: [], checks: [] };
+    if (!categoryData) return { score: 0, observations: [], issues: [], recommendations: [], checks: [], severity: 'low', screenshots: [] };
 
     const score = Math.round(categoryData.score * 100);
     const checks: any[] = [];
@@ -61,7 +61,9 @@ export async function fetchPSI(url: string) {
       observations: [`Lighthouse score for ${categoryId} is ${score}/100.`],
       issues: issues.slice(0, 5), // Keep top 5
       recommendations: recommendations.slice(0, 5),
-      checks
+      checks,
+      severity: issues.length > 2 ? 'high' : issues.length > 0 ? 'medium' : 'low',
+      screenshots: []
     };
   };
 
