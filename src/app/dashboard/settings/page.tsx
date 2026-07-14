@@ -1,28 +1,9 @@
 'use client';
 
-import React, { useState, useEffect } from 'react';
-import { Save, CreditCard, Activity, Settings as SettingsIcon, Link2, Key, CheckCircle2 } from 'lucide-react';
+import React from 'react';
+import { CreditCard, Activity, Settings as SettingsIcon, Link2 } from 'lucide-react';
 
 export default function SettingsPage() {
-  const [clarityApiToken, setClarityApiToken] = useState('');
-  const [useClarity, setUseClarity] = useState(false);
-  const [isSaved, setIsSaved] = useState(false);
-
-  useEffect(() => {
-    const savedApiToken = localStorage.getItem('clarityApiToken');
-    const savedUseClarity = localStorage.getItem('useClarity');
-    
-    if (savedApiToken) setClarityApiToken(savedApiToken);
-    if (savedUseClarity === 'true') setUseClarity(true);
-  }, []);
-
-  const handleSave = () => {
-    localStorage.setItem('clarityApiToken', clarityApiToken);
-    localStorage.setItem('useClarity', useClarity ? 'true' : 'false');
-    setIsSaved(true);
-    setTimeout(() => setIsSaved(false), 2000);
-  };
-
   return (
     <div className="p-8 max-w-5xl mx-auto pb-20 animate-in fade-in duration-500">
       <div className="flex items-center gap-4 mb-8">
@@ -78,79 +59,7 @@ export default function SettingsPage() {
               <Link2 className="w-6 h-6 text-indigo-600" />
               <h2 className="text-2xl font-bold text-slate-900">Integrations</h2>
             </div>
-            <p className="text-slate-500 mb-8 relative z-10">Connect third-party services to enhance your audits with real-world data.</p>
-            
-            <div className="space-y-8 relative z-10">
-              {/* Clarity Integration Box */}
-              <div className="bg-slate-50 border border-slate-200 rounded-3xl p-8">
-                <div className="flex items-start justify-between mb-6">
-                  <div>
-                    <h3 className="text-lg font-bold text-slate-900 flex items-center gap-2">
-                      Microsoft Clarity
-                      <span className="px-2.5 py-1 rounded-full bg-indigo-100 text-indigo-700 text-xs font-bold tracking-wide">BETA</span>
-                    </h3>
-                    <p className="text-sm text-slate-500 mt-2 max-w-md leading-relaxed">
-                      Connect Microsoft Clarity to inject actual behavioral data (heatmaps, rage clicks, scroll depth) directly into the AI vision analysis for data-backed CRO recommendations.
-                    </p>
-                  </div>
-                  <div className="w-12 h-12 bg-white rounded-xl shadow-sm border border-slate-200 flex items-center justify-center p-2 shrink-0">
-                     <img src="https://upload.wikimedia.org/wikipedia/commons/4/44/Microsoft_logo.svg" alt="Microsoft" className="w-full h-full object-contain opacity-80" />
-                  </div>
-                </div>
-                
-                <div className="space-y-5">
-                  <div className="flex items-center justify-between bg-white p-4 rounded-2xl border border-slate-200 shadow-sm">
-                    <div>
-                      <p className="font-bold text-slate-900 text-sm">Enable Clarity Analysis</p>
-                      <p className="text-xs text-slate-500">Toggle off to use the default analysis flow.</p>
-                    </div>
-                    <label className="relative inline-flex items-center cursor-pointer">
-                      <input type="checkbox" className="sr-only peer" checked={useClarity} onChange={(e) => setUseClarity(e.target.checked)} />
-                      <div className="w-11 h-6 bg-slate-200 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-slate-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-indigo-600"></div>
-                    </label>
-                  </div>
-
-                  {useClarity && (
-                    <div className="animate-in fade-in slide-in-from-top-4 duration-300">
-                      <label className="block text-sm font-bold text-slate-700 mb-2 flex items-center gap-2">
-                        <Key className="w-4 h-4 text-slate-400" /> Personal Access Token
-                      </label>
-                      <input
-                        type="password"
-                        value={clarityApiToken}
-                        onChange={(e) => setClarityApiToken(e.target.value)}
-                        placeholder="eyJhbGciOiJIUzI1NiIsInR5cCI..."
-                        className="w-full px-5 py-3.5 rounded-2xl border-none ring-1 ring-slate-200 bg-white text-slate-900 placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-indigo-500 shadow-sm transition-all"
-                      />
-                      <p className="text-xs text-slate-500 mt-2">
-                        We will use this token to automatically find the correct Project ID for any URL you scan.
-                      </p>
-                    </div>
-                  )}
-                  
-                  <div className="pt-4">
-                    <button
-                      onClick={handleSave}
-                      className={`flex items-center justify-center gap-2 px-8 py-3.5 rounded-2xl font-bold transition-all w-full sm:w-auto shadow-md ${
-                        isSaved 
-                        ? 'bg-green-500 text-white hover:bg-green-600' 
-                        : 'bg-slate-900 text-white hover:bg-indigo-600'
-                      }`}
-                    >
-                      {isSaved ? (
-                        <>
-                          <CheckCircle2 className="w-5 h-5" /> Saved Successfully
-                        </>
-                      ) : (
-                        <>
-                          <Save className="w-5 h-5" /> Save Configuration
-                        </>
-                      )}
-                    </button>
-                  </div>
-                </div>
-              </div>
-            </div>
+            <p className="text-slate-500 mb-8 relative z-10">Manage global integrations here. Note: Microsoft Clarity integrations are now managed directly inside individual Projects.</p>
             
           </div>
         </div>

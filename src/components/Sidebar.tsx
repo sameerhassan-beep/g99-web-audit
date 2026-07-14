@@ -27,7 +27,8 @@ import {
   Settings,
   LogOut,
   User,
-  Loader2
+  Loader2,
+  Folder
 } from 'lucide-react';
 import { createClient } from '@/lib/supabase/client';
 import { clsx, type ClassValue } from 'clsx';
@@ -60,6 +61,7 @@ export function Sidebar() {
   ];
 
   const mainNav = [
+    { name: 'Projects', href: '/dashboard/projects', icon: Folder },
     { name: 'Recent audits', href: '/dashboard/recent-audits', icon: Clock },
     { name: 'Overall health score', href: '/dashboard/health', icon: HeartPulse },
     { name: 'Team activity', href: '/dashboard/team', icon: Users },
