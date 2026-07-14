@@ -100,6 +100,9 @@ export default function NewAuditPage() {
         // Generate a new ID
         const auditId = Date.now().toString();
         
+        const supabase = createClient();
+        const { data: { user } } = await supabase.auth.getUser();
+        
         const payloadToSave = {
           id: auditId,
           url: finalData.url,
@@ -107,6 +110,7 @@ export default function NewAuditPage() {
           report: finalData.report,
           screenshots: finalData.screenshots,
           sub_pages: [],
+          ...(user ? { user_id: user.id } : {})
         };
         
         // Always save to sessionStorage as a fallback (for when Supabase isn't configured yet)
