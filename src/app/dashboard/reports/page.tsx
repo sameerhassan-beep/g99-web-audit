@@ -41,7 +41,10 @@ export default function AuditsPage() {
     const supabase = createClient();
     const { error } = await supabase.from('audits').delete().eq('id', id);
     
-    if (!error) {
+    if (error) {
+      console.error('Delete error:', error);
+      alert(`Failed to delete: ${error.message}`);
+    } else {
       setAudits(audits.filter(a => a.id !== id));
     }
   };
