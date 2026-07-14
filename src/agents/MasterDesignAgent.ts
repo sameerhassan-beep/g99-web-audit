@@ -43,9 +43,14 @@ export class MasterDesignAgent extends BaseAgent {
     super('MasterDesignAgent');
   }
 
-  async analyze(url: string, context: { screenshots: { desktop: string; mobile: string; tablet: string; fullPage: string; fullPageNoModals: string; } }): Promise<any> {
+  async analyze(url: string, context: { screenshots: { desktop: string; mobile: string; tablet: string; fullPage: string; fullPageNoModals: string; }, clarityData?: string }): Promise<any> {
     console.log(`[MasterDesignAgent] Analyzing mega-prompt for ${url}`);
     
+    let clarityContext = '';
+    if (context.clarityData) {
+      clarityContext = `\n\nCRITICAL BEHAVIORAL DATA (MICROSOFT CLARITY):\nYou are provided with actual user behavioral metrics for this URL:\n${context.clarityData}\nUse this data to heavily inform your CRO (Conversion Rate Optimization) and UX recommendations. Pay close attention to areas with high drop-offs, dead clicks, or rage clicks, and suggest design fixes to resolve these exact pain points.`;
+    }
+
     try {
       const { object } = await generateObject({
         model: getNextGoogleModel('gemini-flash-latest'),
@@ -62,7 +67,7 @@ You must evaluate the website across 7 distinct disciplines simultaneously, payi
 7. Market Analysis (positioning, feature parity, differentiation)
 
 CRITICAL INSTRUCTION: You MUST be extremely detailed. Do not give short bullet points. Every observation, issue, and recommendation MUST be a comprehensive, multi-sentence paragraph. Explain the 'why' and 'how' deeply. Act like a senior design consultant writing a $10,000 audit report. Do not hold back on pointing out generic or outdated elements. Give specific, actionable recommendations for each category.
-For EVERY category, output 3-5 visual markers identifying the exact locations of key issues. Use estimated percentage coordinates (x=0 to 100 left-to-right, y=0 to 100 top-to-bottom) based on your spatial understanding of the screenshot provided.`,
+For EVERY category, output 3-5 visual markers identifying the exact locations of key issues. Use estimated percentage coordinates (x=0 to 100 left-to-right, y=0 to 100 top-to-bottom) based on your spatial understanding of the screenshot provided.${clarityContext}`,
         schema: z.object({
           vision: AgentResultSchema,
           ux: AgentResultSchema,

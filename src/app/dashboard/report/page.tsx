@@ -55,10 +55,16 @@ function ReportContent() {
     setLoadingNewPage(true);
     setStatusMessage('Initializing...');
     try {
+      const useClarity = localStorage.getItem('useClarity') === 'true';
+      const clarityApiToken = useClarity ? localStorage.getItem('clarityApiToken') || '' : '';
+
       const res = await fetch('/api/audit', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ url: newUrl })
+        body: JSON.stringify({ 
+          url: newUrl,
+          clarityApiToken
+        })
       });
       if (!res.body) throw new Error('No response body');
       

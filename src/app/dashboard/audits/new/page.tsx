@@ -48,11 +48,16 @@ export default function NewAuditPage() {
       }
 
       setStatusMessage('Finalizing report...');
-      
+      const useClarity = localStorage.getItem('useClarity') === 'true';
+      const clarityApiToken = useClarity ? localStorage.getItem('clarityApiToken') || '' : '';
+
       const res = await fetch('/api/audit', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ url: targetUrl })
+        body: JSON.stringify({ 
+          url: targetUrl,
+          clarityApiToken
+        })
       });
       
       if (!res.ok) {

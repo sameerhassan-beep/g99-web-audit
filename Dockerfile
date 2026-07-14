@@ -1,0 +1,41 @@
+# Base image with Node.js
+FROM node:20-slim AS builder
+
+WORKDIR /app
+
+# Copy package files
+COPY package.json package-lock.json ./
+RUN npm ci
+
+# Copy source files
+COPY . .
+
+# Build the Next.js app
+ENV NEXT_TELEMETRY_DISABLED=1
+RUN npm run build
+
+# Production image
+FROM node:20-slim AS runner
+
+WORKDIR /app
+
+ENV NODE_ENV=production
+ENV NEXT_TELEMETRY_DISABLED=1
+
+# Install Playwright dependencies (browsers + OS libraries)
+# This is required for the WebsiteScraper to launch Chromium
+RUN apt-get update && apt-get install -y wget gnupg && \
+    npx playwright install --with-deps chromium && \
+    rm -rf /var/lib/apt/lists/*
+
+# Copy built artifacts from the builder stage
+# (Requires output: 'standalone' in next.config.ts)
+COPY --from=builder /app/public ./public
+COPY --from=builder /app/.next/standalone ./
+COPY --from=builder /app/.next/static ./.next/static
+
+EXPOSE 3000
+ENV PORT=3000
+ENV HOSTNAME="0.0.0.0"
+
+CMD ["node", "server.js"]
