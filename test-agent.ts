@@ -11,7 +11,8 @@ async function test() {
       desktop: emptyBase64,
       tablet: emptyBase64,
       mobile: emptyBase64,
-      fullPage: emptyBase64
+      fullPage: emptyBase64,
+      fullPageNoModals: emptyBase64
     }
   };
 
