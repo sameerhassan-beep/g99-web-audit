@@ -26,13 +26,18 @@ export default async function LoginPage() {
     const password = formData.get('password') as string;
     const supabase = await createClient();
 
-    const { error } = await supabase.auth.signUp({
+    const { data, error } = await supabase.auth.signUp({
       email,
       password,
     });
 
     if (error) {
       redirect('/login?message=Could not sign up user');
+    }
+
+    // If session is null, it means email confirmation is required by Supabase settings
+    if (!data.session) {
+      redirect('/login?message=Check your email to confirm your account');
     }
 
     redirect('/dashboard');
