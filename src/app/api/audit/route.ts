@@ -78,7 +78,8 @@ export async function POST(req: NextRequest) {
             desktop: scrapeData.screenshots.desktop,
             tablet: scrapeData.screenshots.tablet,
             mobile: scrapeData.screenshots.mobile,
-            fullPage: scrapeData.screenshots.fullPage
+            fullPage: scrapeData.screenshots.fullPage,
+            fullPageNoModals: scrapeData.screenshots.fullPageNoModals
           }
         };
 
@@ -148,12 +149,14 @@ export async function POST(req: NextRequest) {
         fs.writeFileSync(path.join(screenshotsDir, `${runId}_tablet.jpg`), Buffer.from(scrapeData.screenshots.tablet, 'base64'));
         fs.writeFileSync(path.join(screenshotsDir, `${runId}_mobile.jpg`), Buffer.from(scrapeData.screenshots.mobile, 'base64'));
         fs.writeFileSync(path.join(screenshotsDir, `${runId}_fullPage.jpg`), Buffer.from(scrapeData.screenshots.fullPage, 'base64'));
+        fs.writeFileSync(path.join(screenshotsDir, `${runId}_fullPageNoModals.jpg`), Buffer.from(scrapeData.screenshots.fullPageNoModals, 'base64'));
 
         const savedScreenshots = {
           desktop: `/screenshots/${runId}_desktop.jpg`,
           tablet: `/screenshots/${runId}_tablet.jpg`,
           mobile: `/screenshots/${runId}_mobile.jpg`,
-          fullPage: `/screenshots/${runId}_fullPage.jpg`
+          fullPage: `/screenshots/${runId}_fullPage.jpg`,
+          fullPageNoModals: `/screenshots/${runId}_fullPageNoModals.jpg`
         };
 
         // Send the final completion payload

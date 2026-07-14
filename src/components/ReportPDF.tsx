@@ -140,12 +140,17 @@ const getImpactBadge = (impact: string) => {
   return { bg: styles.badgeImpactLowBg, text: styles.badgeImpactLowText };
 };
 
-export const ReportPDF = ({ data }: { data: any }) => {
+export const ReportPDF = ({ data, category }: { data: any, category?: string }) => {
   const { report } = data;
+  
+  const categoriesToRender = category 
+    ? [category] 
+    : Object.keys(report.rawResults).filter(c => report.rawResults[c as keyof typeof report.rawResults] != null);
   
   return (
     <Document>
       {/* Cover Page & Executive Summary */}
+      {!category && (
       <Page size="A4" style={styles.page}>
         <View style={styles.headerSection}>
           <Text style={styles.header}>G99 WebAudit Report</Text>
@@ -183,23 +188,24 @@ export const ReportPDF = ({ data }: { data: any }) => {
           </View>
         </View>
       </Page>
+      )}
 
       {/* Detailed Categories Pages */}
       <Page size="A4" style={styles.page}>
         <View style={[styles.headerSection, { paddingBottom: 30 }]}>
-          <Text style={styles.header}>Detailed Category Audits</Text>
-          <Text style={styles.url}>Comprehensive breakdown of all AI engines</Text>
+          <Text style={styles.header}>{category ? `${category.charAt(0).toUpperCase() + category.slice(1)} Analysis` : 'Detailed Category Audits'}</Text>
+          <Text style={styles.url}>{category ? data.url : 'Comprehensive breakdown of all AI engines'}</Text>
         </View>
         
         <View style={styles.contentArea}>
-          {Object.keys(report.rawResults).filter(category => report.rawResults[category as keyof typeof report.rawResults] != null).map((category, catIdx) => {
-            const result = report.rawResults[category as keyof typeof report.rawResults]!;
-            if (!result.checks || result.checks.length === 0) return null;
+          {categoriesToRender.map((catName, catIdx) => {
+            const result = report.rawResults[catName as keyof typeof report.rawResults]!;
+            if (!result || !result.checks || result.checks.length === 0) return null;
 
             return (
-              <View key={category} style={styles.categoryBlock} break={catIdx > 0}>
+              <View key={catName} style={styles.categoryBlock} break={catIdx > 0}>
                 <View style={styles.categoryHeader}>
-                  <Text style={styles.categoryTitle}>{category} Analysis</Text>
+                  <Text style={styles.categoryTitle}>{catName} Analysis</Text>
                   <Text style={styles.categoryScore}>{result.score}/100</Text>
                 </View>
                 

@@ -35,7 +35,7 @@ const AgentResultSchema = z.object({
     y: z.number().describe('Y coordinate percentage (0-100) on the page where this issue/recommendation is located.'),
     label: z.string().describe('Short label or title for the marker (e.g. "Contrast Issue", "Misaligned Button")'),
     description: z.string().describe('Detailed description of what needs to be fixed at this location.')
-  })).optional().describe('Coordinates for visual markers to overlay on the screenshot. Only required for Vision and UX categories.')
+  })).min(3).describe('Coordinates for visual markers to overlay on the screenshot. Output exactly 3 to 5 markers for EVERY category based on your spatial understanding of the screenshot provided.')
 });
 
 export class MasterDesignAgent extends BaseAgent {
@@ -43,7 +43,7 @@ export class MasterDesignAgent extends BaseAgent {
     super('MasterDesignAgent');
   }
 
-  async analyze(url: string, context: { screenshots: { desktop: string; mobile: string; tablet: string; fullPage: string } }): Promise<any> {
+  async analyze(url: string, context: { screenshots: { desktop: string; mobile: string; tablet: string; fullPage: string; fullPageNoModals: string; } }): Promise<any> {
     console.log(`[MasterDesignAgent] Analyzing mega-prompt for ${url}`);
     
     try {
@@ -51,8 +51,8 @@ export class MasterDesignAgent extends BaseAgent {
         model: getNextGoogleModel('gemini-flash-latest'),
         maxRetries: 7,
         system: `You are an elite, agency-level Design, UX, and Strategy Team.
-Your goal is to conduct a relentless, high-end critique of the provided website screenshots (Desktop, Tablet, Mobile, FullPage).
-You must evaluate the website across 7 distinct disciplines simultaneously:
+Your goal is to conduct a relentless, high-end critique of the provided website screenshots. You are provided with: Desktop Viewport, Mobile Viewport, and a Clean FullPage (Header to Footer, with popups removed).
+You must evaluate the website across 7 distinct disciplines simultaneously, paying close attention to the full header-to-footer experience:
 1. Vision & UI (typography, whitespace, hierarchy, contrast, modern aesthetics)
 2. UX & Usability (navigation, mental models, friction, accessibility)
 3. CRO & Sales (funnel clarity, CTA placement, value props, trust signals)
@@ -62,7 +62,7 @@ You must evaluate the website across 7 distinct disciplines simultaneously:
 7. Market Analysis (positioning, feature parity, differentiation)
 
 CRITICAL INSTRUCTION: You MUST be extremely detailed. Do not give short bullet points. Every observation, issue, and recommendation MUST be a comprehensive, multi-sentence paragraph. Explain the 'why' and 'how' deeply. Act like a senior design consultant writing a $10,000 audit report. Do not hold back on pointing out generic or outdated elements. Give specific, actionable recommendations for each category.
-For the Vision and UX categories, output 3-5 visual markers identifying the exact locations of key issues. Use estimated percentage coordinates (x=0 to 100 left-to-right, y=0 to 100 top-to-bottom) based on your spatial understanding of the screenshot provided.`,
+For EVERY category, output 3-5 visual markers identifying the exact locations of key issues. Use estimated percentage coordinates (x=0 to 100 left-to-right, y=0 to 100 top-to-bottom) based on your spatial understanding of the screenshot provided.`,
         schema: z.object({
           vision: AgentResultSchema,
           ux: AgentResultSchema,
@@ -78,7 +78,7 @@ For the Vision and UX categories, output 3-5 visual markers identifying the exac
             content: [
               {
                 type: 'text',
-                text: `Please critique the following website: ${url}. The images provided are the Desktop, Tablet, and Mobile viewports respectively. Provide a comprehensive 7-discipline audit.`
+                text: `Please critique the following website: ${url}. The images provided are the Desktop viewport, Mobile viewport, and Clean FullPage view respectively. Provide a comprehensive 7-discipline audit.`
               },
               {
                 type: 'image',
@@ -86,11 +86,11 @@ For the Vision and UX categories, output 3-5 visual markers identifying the exac
               },
               {
                 type: 'image',
-                image: context.screenshots.tablet
+                image: context.screenshots.mobile
               },
               {
                 type: 'image',
-                image: context.screenshots.mobile
+                image: context.screenshots.fullPageNoModals
               }
             ]
           }

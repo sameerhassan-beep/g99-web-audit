@@ -12,6 +12,7 @@ export interface ScrapeResult {
     tablet: string;
     mobile: string;
     fullPage: string;
+    fullPageNoModals: string;
   };
 }
 
@@ -34,7 +35,7 @@ export class WebsiteScraper {
   async scrape(url: string): Promise<ScrapeResult> {
     if (!this.browser) await this.init();
     
-    const context = await this.browser!.newContext();
+    const context = await this.browser!.newContext({ deviceScaleFactor: 1 });
     const page = await context.newPage();
 
     // Navigate and wait for page to load (networkidle can timeout on sites with tracking pixels/websockets)
@@ -51,22 +52,36 @@ export class WebsiteScraper {
     // Desktop
     await page.setViewportSize({ width: 1920, height: 1080 });
     await page.waitForTimeout(1000);
-    const desktopBuffer = await page.screenshot({ type: 'jpeg', quality: 80 });
+    const desktopBuffer = await page.screenshot({ type: 'jpeg', quality: 20, scale: 'css' });
 
     // Tablet
     await page.setViewportSize({ width: 768, height: 1024 });
     await page.waitForTimeout(1000);
-    const tabletBuffer = await page.screenshot({ type: 'jpeg', quality: 80 });
+    const tabletBuffer = await page.screenshot({ type: 'jpeg', quality: 20, scale: 'css' });
 
     // Mobile
     await page.setViewportSize({ width: 375, height: 812 });
     await page.waitForTimeout(1000);
-    const mobileBuffer = await page.screenshot({ type: 'jpeg', quality: 80 });
+    const mobileBuffer = await page.screenshot({ type: 'jpeg', quality: 20, scale: 'css' });
 
     // Full Page (Reset to desktop width for full scroll capture)
     await page.setViewportSize({ width: 1920, height: 1080 });
     await page.waitForTimeout(1000);
-    const fullPageBuffer = await page.screenshot({ type: 'jpeg', quality: 80, fullPage: true });
+    const fullPageBuffer = await page.screenshot({ type: 'jpeg', quality: 20, scale: 'css', fullPage: true });
+
+    // Remove Modals / Sticky Overlays
+    await page.evaluate(() => {
+      document.querySelectorAll('*').forEach(el => {
+        const style = window.getComputedStyle(el);
+        if ((style.position === 'fixed' || style.position === 'sticky') && parseInt(style.zIndex || '0') > 50) {
+          (el as HTMLElement).style.display = 'none';
+        }
+      });
+    });
+    
+    // Wait for repaint just in case
+    await page.waitForTimeout(1000);
+    const fullPageNoModalsBuffer = await page.screenshot({ type: 'jpeg', quality: 20, scale: 'css', fullPage: true });
 
     await context.close();
 
@@ -82,6 +97,7 @@ export class WebsiteScraper {
         tablet: tabletBuffer.toString('base64'),
         mobile: mobileBuffer.toString('base64'),
         fullPage: fullPageBuffer.toString('base64'),
+        fullPageNoModals: fullPageNoModalsBuffer.toString('base64'),
       }
     };
   }

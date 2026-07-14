@@ -58,3 +58,51 @@ AI_RetryError: Failed after 4 attempts. Last error: AI_APICallError: This model 
     at async Promise.all (index 1)
     at async Object.start (/Users/apple/Desktop/design-audit/.next/dev/server/chunks/[root-of-the-server]__183ebqj._.js:1200:52)
 
+2026-07-07T06:25:03.632Z - MasterDesignAgent Error: Failed after 8 attempts. Last error: AI_APICallError: You exceeded your current quota, please check your plan and billing details. For more information on this error, head to: https://ai.google.dev/gemini-api/docs/rate-limits. To monitor your current usage, head to: https://ai.dev/rate-limit. 
+* Quota exceeded for metric: generativelanguage.googleapis.com/generate_content_free_tier_requests, limit: 20, model: gemini-3.5-flash
+Please retry in 57.146589639s.
+AI_RetryError: Failed after 8 attempts. Last error: AI_APICallError: You exceeded your current quota, please check your plan and billing details. For more information on this error, head to: https://ai.google.dev/gemini-api/docs/rate-limits. To monitor your current usage, head to: https://ai.dev/rate-limit. 
+* Quota exceeded for metric: generativelanguage.googleapis.com/generate_content_free_tier_requests, limit: 20, model: gemini-3.5-flash
+Please retry in 57.146589639s.
+    at createRetryError (/Users/apple/Desktop/design-audit/.next/dev/server/chunks/node_modules_ai_dist_index_16zsbns.js:2804:58)
+    at retryWithExponentialBackoffInternal (/Users/apple/Desktop/design-audit/.next/dev/server/chunks/node_modules_@ai-sdk_provider-utils_dist_index_1afcz0a.js:3218:19)
+    at process.processTicksAndRejections (node:internal/process/task_queues:103:5)
+    at async generateObject (/Users/apple/Desktop/design-audit/.next/dev/server/chunks/node_modules_ai_dist_index_16zsbns.js:11832:32)
+    at async MasterDesignAgent.analyze (/Users/apple/Desktop/design-audit/.next/dev/server/chunks/[root-of-the-server]__183ebqj._.js:940:32)
+    at async runAgent (/Users/apple/Desktop/design-audit/.next/dev/server/chunks/[root-of-the-server]__183ebqj._.js:1193:37)
+    at async Promise.all (index 1)
+    at async Object.start (/Users/apple/Desktop/design-audit/.next/dev/server/chunks/[root-of-the-server]__183ebqj._.js:1226:52)
+
+2026-07-07T07:16:32.607Z - MasterDesignAgent Error: Failed after 8 attempts. Last error: AI_APICallError: This model is currently experiencing high demand. Spikes in demand are usually temporary. Please try again later.
+AI_RetryError: Failed after 8 attempts. Last error: AI_APICallError: This model is currently experiencing high demand. Spikes in demand are usually temporary. Please try again later.
+    at createRetryError (/Users/apple/Desktop/design-audit/.next/dev/server/chunks/node_modules_ai_dist_index_16zsbns.js:2804:58)
+    at retryWithExponentialBackoffInternal (/Users/apple/Desktop/design-audit/.next/dev/server/chunks/node_modules_@ai-sdk_provider-utils_dist_index_1afcz0a.js:3218:19)
+    at process.processTicksAndRejections (node:internal/process/task_queues:103:5)
+    at async generateObject (/Users/apple/Desktop/design-audit/.next/dev/server/chunks/node_modules_ai_dist_index_16zsbns.js:11832:32)
+    at async MasterDesignAgent.analyze (/Users/apple/Desktop/design-audit/.next/dev/server/chunks/[root-of-the-server]__183ebqj._.js:940:32)
+    at async runAgent (/Users/apple/Desktop/design-audit/.next/dev/server/chunks/[root-of-the-server]__183ebqj._.js:1193:37)
+    at async Promise.all (index 1)
+    at async Object.start (/Users/apple/Desktop/design-audit/.next/dev/server/chunks/[root-of-the-server]__183ebqj._.js:1226:52)
+
+2026-07-07T07:26:39.055Z - MasterDesignAgent Error: Failed after 8 attempts. Last error: AI_APICallError: This model is currently experiencing high demand. Spikes in demand are usually temporary. Please try again later.
+AI_RetryError: Failed after 8 attempts. Last error: AI_APICallError: This model is currently experiencing high demand. Spikes in demand are usually temporary. Please try again later.
+    at createRetryError (/Users/apple/Desktop/design-audit/.next/dev/server/chunks/node_modules_ai_dist_index_16zsbns.js:2804:58)
+    at retryWithExponentialBackoffInternal (/Users/apple/Desktop/design-audit/.next/dev/server/chunks/node_modules_@ai-sdk_provider-utils_dist_index_1afcz0a.js:3218:19)
+    at process.processTicksAndRejections (node:internal/process/task_queues:103:5)
+    at async generateObject (/Users/apple/Desktop/design-audit/.next/dev/server/chunks/node_modules_ai_dist_index_16zsbns.js:11832:32)
+    at async MasterDesignAgent.analyze (/Users/apple/Desktop/design-audit/.next/dev/server/chunks/[root-of-the-server]__183ebqj._.js:940:32)
+    at async runAgent (/Users/apple/Desktop/design-audit/.next/dev/server/chunks/[root-of-the-server]__183ebqj._.js:1193:37)
+    at async Promise.all (index 1)
+    at async Object.start (/Users/apple/Desktop/design-audit/.next/dev/server/chunks/[root-of-the-server]__183ebqj._.js:1226:52)
+
+2026-07-07T07:53:52.974Z - MasterDesignAgent Error: Failed after 8 attempts. Last error: AI_APICallError: This model is currently experiencing high demand. Spikes in demand are usually temporary. Please try again later.
+AI_RetryError: Failed after 8 attempts. Last error: AI_APICallError: This model is currently experiencing high demand. Spikes in demand are usually temporary. Please try again later.
+    at createRetryError (/Users/apple/Desktop/design-audit/.next/dev/server/chunks/node_modules_ai_dist_index_16zsbns.js:2804:58)
+    at retryWithExponentialBackoffInternal (/Users/apple/Desktop/design-audit/.next/dev/server/chunks/node_modules_@ai-sdk_provider-utils_dist_index_1afcz0a.js:3218:19)
+    at process.processTicksAndRejections (node:internal/process/task_queues:103:5)
+    at async generateObject (/Users/apple/Desktop/design-audit/.next/dev/server/chunks/node_modules_ai_dist_index_16zsbns.js:11832:32)
+    at async MasterDesignAgent.analyze (/Users/apple/Desktop/design-audit/.next/dev/server/chunks/[root-of-the-server]__183ebqj._.js:940:32)
+    at async runAgent (/Users/apple/Desktop/design-audit/.next/dev/server/chunks/[root-of-the-server]__183ebqj._.js:1193:37)
+    at async Promise.all (index 1)
+    at async Object.start (/Users/apple/Desktop/design-audit/.next/dev/server/chunks/[root-of-the-server]__183ebqj._.js:1226:52)
+

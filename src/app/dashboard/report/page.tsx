@@ -3,8 +3,9 @@
 import React, { useEffect, useState, Suspense } from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
 import { BarChart, Bar, XAxis, YAxis, CartesianGrid, ResponsiveContainer, Tooltip } from 'recharts';
-import { ArrowLeft, CheckCircle2, XCircle, AlertTriangle, Loader2, Plus, Globe, Download, ArrowUpRight, ShieldAlert, Zap } from 'lucide-react';
+import { ArrowLeft, CheckCircle2, XCircle, AlertTriangle, Loader2, Plus, Globe, Download, ArrowUpRight, ShieldAlert, Zap, Image as ImageIcon } from 'lucide-react';
 import dynamic from 'next/dynamic';
+import Link from 'next/link';
 import { createClient } from '@/lib/supabase/client';
 
 const DownloadPDFButton = dynamic(() => import('@/components/DownloadPDFButton'), {
@@ -347,33 +348,26 @@ function ReportContent() {
                       </div>
                     </div>
                   </div>
+                  <div>
+                    <DownloadPDFButton data={activeData} category={category} />
+                  </div>
                 </div>
 
                 {/* Visual Markers for Vision/UX Analysis */}
-                {result.markers && result.markers.length > 0 && activeData.screenshots?.desktop && (
-                  <div className="p-8 border-b border-slate-100 bg-slate-50 flex flex-col items-center">
-                    <h4 className="font-bold text-slate-900 mb-6 uppercase tracking-wider text-xs flex items-center gap-2 self-start">
-                      Visual Feedback Map
-                    </h4>
-                    <div className="relative rounded-2xl overflow-hidden shadow-2xl border-[4px] border-slate-800 inline-block max-w-full">
-                      <img src={activeData.screenshots.desktop} alt="Analyzed Screen" className="w-full h-auto object-contain max-h-[80vh]" />
-                      {result.markers.map((marker: any, idx: number) => (
-                        <div 
-                          key={`marker-${idx}`}
-                          className="absolute w-8 h-8 -ml-4 -mt-4 bg-indigo-600 border-[3px] border-white rounded-full shadow-[0_0_15px_rgba(79,70,229,0.6)] flex items-center justify-center cursor-pointer group hover:z-10 animate-in zoom-in duration-500"
-                          style={{ left: `${Math.max(0, Math.min(100, marker.x))}%`, top: `${Math.max(0, Math.min(100, marker.y))}%`, animationDelay: `${idx * 150}ms` }}
-                        >
-                          <span className="text-xs font-black text-white">{idx + 1}</span>
-                          
-                          {/* Tooltip */}
-                          <div className="absolute top-full left-1/2 -translate-x-1/2 mt-3 w-64 p-4 bg-slate-900 text-white text-xs rounded-xl shadow-2xl opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 z-50 pointer-events-none border border-slate-700">
-                            <div className="absolute -top-1.5 left-1/2 -translate-x-1/2 w-3 h-3 bg-slate-900 border-t border-l border-slate-700 rotate-45"></div>
-                            <strong className="block mb-1 text-indigo-300 text-[13px]">{marker.label}</strong>
-                            <span className="text-slate-300 leading-relaxed text-[12px]">{marker.description}</span>
-                          </div>
-                        </div>
-                      ))}
+                {result.markers && result.markers.length > 0 && (
+                  <div className="p-8 border-b border-slate-100 bg-slate-50 flex flex-col sm:flex-row sm:items-center justify-between gap-6">
+                    <div>
+                      <h4 className="font-bold text-slate-900 mb-2 uppercase tracking-wider text-xs flex items-center gap-2">
+                        Visual Feedback Map
+                      </h4>
+                      <p className="text-sm text-slate-600">The AI has generated {result.markers.length} spatial markers on the actual screenshot for this category.</p>
                     </div>
+                    <Link 
+                      href={`/dashboard/report/screenshots?id=${data.id}`}
+                      className="inline-flex items-center justify-center gap-2 px-6 py-3 bg-indigo-600 text-white text-sm font-bold rounded-xl shadow-md hover:bg-indigo-700 transition-colors whitespace-nowrap"
+                    >
+                      <ImageIcon className="w-4 h-4" /> View Screenshot Analysis
+                    </Link>
                   </div>
                 )}
 
