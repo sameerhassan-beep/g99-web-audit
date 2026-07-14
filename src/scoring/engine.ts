@@ -23,7 +23,7 @@ export interface ScoredAuditReport {
     topWeaknesses: string[];
     priorityFixes: string[];
   };
-  rawResults: AuditResults;
+  rawResults: Partial<AuditResults>;
 }
 
 export class ScoringEngine {
@@ -42,7 +42,7 @@ export class ScoringEngine {
     market: 5     // 5%
   };
 
-  public generateReport(results: AuditResults): ScoredAuditReport {
+  public generateReport(results: Partial<AuditResults>): ScoredAuditReport {
     // 1. Calculate overall score based on available weights
     let totalScore = 0;
     let totalWeight = 0;

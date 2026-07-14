@@ -8,7 +8,6 @@ import { MasterDesignAgent } from '@/agents/MasterDesignAgent';
 import { NextRequest, NextResponse } from 'next/server';
 import fs from 'fs';
 import path from 'path';
-import { BrandAgent } from '@/agents/BrandAgent';
 import { fetchPSI } from '@/lib/psi';
 
 export const maxDuration = 300; // Allow max duration for scraping
@@ -190,17 +189,17 @@ export async function POST(req: NextRequest) {
         send({ type: 'status', message: 'Generating final audit report...' });
         const scoringEngine = new ScoringEngine();
         const finalReport = scoringEngine.generateReport({
-          seo: psiData ? psiData.seo : null,
-          accessibility: psiData ? psiData.accessibility : null,
-          vision: visionResult,
-          ux: uxResult,
-          cro: croResult,
-          brand: brandResult,
-          content: contentResult,
-          performance: psiData ? psiData.performance : null,
-          security: psiData ? psiData.bestPractices : null,
-          mobile: mobileResult,
-          market: marketResult
+          seo: psiData ? psiData.seo : undefined,
+          accessibility: psiData ? psiData.accessibility : undefined,
+          vision: visionResult || undefined,
+          ux: uxResult || undefined,
+          cro: croResult || undefined,
+          brand: brandResult || undefined,
+          content: contentResult || undefined,
+          performance: psiData ? psiData.performance : undefined,
+          security: psiData ? psiData.bestPractices : undefined,
+          mobile: mobileResult || undefined,
+          market: marketResult || undefined
         });
 
         // Save screenshots to filesystem
