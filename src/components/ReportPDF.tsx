@@ -5,8 +5,8 @@ const styles = StyleSheet.create({
   page: { 
     flexDirection: 'column', 
     backgroundColor: '#FAFAFC', 
-    paddingTop: 40, 
-    paddingBottom: 50, 
+    paddingTop: 30, 
+    paddingBottom: 30, 
     paddingHorizontal: 0, 
     fontFamily: 'Helvetica' 
   },
@@ -14,108 +14,108 @@ const styles = StyleSheet.create({
   // Header / Cover styling
   headerSection: {
     backgroundColor: '#FFFFFF',
-    padding: 40,
+    padding: 20,
     marginHorizontal: 30,
-    borderRadius: 12,
-    marginBottom: 30,
+    borderRadius: 8,
+    marginBottom: 20,
     borderWidth: 1,
     borderColor: '#E5E7EB',
   },
-  header: { fontSize: 28, marginBottom: 8, fontWeight: 'bold', color: '#111827', letterSpacing: -0.5 },
-  url: { fontSize: 12, color: '#6B7280', fontWeight: 'medium' },
+  header: { fontSize: 20, marginBottom: 4, fontWeight: 'bold', color: '#111827', letterSpacing: -0.5 },
+  url: { fontSize: 10, color: '#6B7280', fontWeight: 'medium' },
   
   // Score styling
   scoreWrapper: {
     alignItems: 'center',
-    padding: 30,
+    padding: 24,
     backgroundColor: '#FFFFFF',
     marginHorizontal: 30,
-    borderRadius: 12,
+    borderRadius: 8,
     borderWidth: 1,
     borderColor: '#E5E7EB',
-    marginBottom: 30,
+    marginBottom: 20,
   },
-  scoreText: { fontSize: 72, fontWeight: 'bold' },
-  scoreLabel: { fontSize: 11, color: '#6B7280', marginTop: 10, textTransform: 'uppercase', letterSpacing: 1.5, fontWeight: 'bold' },
+  scoreText: { fontSize: 56, fontWeight: 'bold' },
+  scoreLabel: { fontSize: 9.5, color: '#6B7280', marginTop: 6, textTransform: 'uppercase', letterSpacing: 1.5, fontWeight: 'bold' },
   
   // Content Sections
-  contentArea: { paddingHorizontal: 30, paddingBottom: 20 },
-  sectionTitle: { fontSize: 18, marginBottom: 20, color: '#111827', fontWeight: 'bold' },
+  contentArea: { paddingHorizontal: 30, paddingBottom: 16 },
+  sectionTitle: { fontSize: 16, marginBottom: 16, color: '#111827', fontWeight: 'bold' },
   
   // Executive Summary Blocks
   execBlock: {
     backgroundColor: '#FFFFFF',
-    padding: 24,
-    borderRadius: 12,
-    marginBottom: 20,
+    padding: 16,
+    borderRadius: 8,
+    marginBottom: 16,
     borderWidth: 1,
     borderColor: '#E5E7EB',
   },
 
   // Category Blocks
   categoryBlock: {
-    marginBottom: 40,
+    marginBottom: 24,
   },
   categoryHeader: {
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
-    paddingBottom: 16,
-    marginBottom: 16,
-    borderBottomWidth: 2,
+    paddingBottom: 10,
+    marginBottom: 12,
+    borderBottomWidth: 1,
     borderBottomColor: '#E5E7EB',
   },
-  categoryTitle: { fontSize: 18, fontWeight: 'bold', color: '#111827', textTransform: 'capitalize' },
+  categoryTitle: { fontSize: 15, fontWeight: 'bold', color: '#111827', textTransform: 'capitalize' },
   categoryScore: { 
-    fontSize: 14, 
+    fontSize: 11, 
     fontWeight: 'bold', 
     color: '#4F46E5', 
     backgroundColor: '#EEF2FF', 
-    paddingHorizontal: 12, 
-    paddingVertical: 6, 
-    borderRadius: 6 
+    paddingHorizontal: 10, 
+    paddingVertical: 4, 
+    borderRadius: 4 
   },
   
   // Lists
-  listGroup: { marginBottom: 20 },
-  listHeading: { fontSize: 11, fontWeight: 'bold', marginBottom: 10, textTransform: 'uppercase', letterSpacing: 0.5 },
-  bullet: { flexDirection: 'row', marginBottom: 8, alignItems: 'flex-start' },
-  bulletPoint: { width: 14, fontSize: 11, fontWeight: 'bold', marginTop: -1 },
-  bulletText: { flex: 1, fontSize: 10, lineHeight: 1.6, color: '#4B5563' },
+  listGroup: { marginBottom: 12 },
+  listHeading: { fontSize: 9.5, fontWeight: 'bold', marginBottom: 6, textTransform: 'uppercase', letterSpacing: 0.5 },
+  bullet: { flexDirection: 'row', marginBottom: 4, alignItems: 'flex-start' },
+  bulletPoint: { width: 12, fontSize: 10, fontWeight: 'bold', marginTop: -1 },
+  bulletText: { flex: 1, fontSize: 9.5, lineHeight: 1.4, color: '#4B5563' },
   
   // Tables
-  tableContainer: { marginTop: 16, borderWidth: 1, borderColor: '#F3F4F6' },
+  tableContainer: { marginTop: 12, borderWidth: 1, borderColor: '#F3F4F6' },
   tableHeader: { 
     flexDirection: 'row', 
     backgroundColor: '#F9FAFB', 
-    paddingVertical: 12, 
-    paddingHorizontal: 12, 
+    paddingVertical: 8, 
+    paddingHorizontal: 8, 
     borderBottomWidth: 1, 
     borderBottomColor: '#E5E7EB' 
   },
-  tableHeaderText: { fontSize: 9, fontWeight: 'bold', color: '#6B7280', textTransform: 'uppercase', letterSpacing: 0.5 },
+  tableHeaderText: { fontSize: 8.5, fontWeight: 'bold', color: '#6B7280', textTransform: 'uppercase', letterSpacing: 0.5 },
   
   checkRow: { 
     flexDirection: 'row', 
     borderBottomWidth: 1, 
     borderBottomColor: '#F3F4F6', 
-    paddingVertical: 12, 
-    paddingHorizontal: 12 
+    paddingVertical: 8, 
+    paddingHorizontal: 8 
   },
   
   // Adjusted Column Widths to prevent overlap
   colStatus: { width: '15%', justifyContent: 'center' },
-  colCheck: { width: '35%', paddingRight: 12 },
-  colImpact: { width: '15%', paddingRight: 8 },
+  colCheck: { width: '35%', paddingRight: 10 },
+  colImpact: { width: '15%', paddingRight: 6 },
   colRemediation: { width: '35%' },
   
   // Text inside tables
-  checkName: { fontSize: 9.5, color: '#111827', fontWeight: 'bold', lineHeight: 1.5 },
-  checkRemediation: { fontSize: 9.5, color: '#4B5563', lineHeight: 1.5 },
+  checkName: { fontSize: 8.5, color: '#111827', fontWeight: 'bold', lineHeight: 1.4 },
+  checkRemediation: { fontSize: 8.5, color: '#4B5563', lineHeight: 1.4 },
   
   // Badges
-  badge: { paddingHorizontal: 6, paddingVertical: 4, borderRadius: 4, alignSelf: 'flex-start' },
-  badgeText: { fontSize: 7.5, fontWeight: 'bold', textTransform: 'uppercase', letterSpacing: 0.5 },
+  badge: { paddingHorizontal: 5, paddingVertical: 3, borderRadius: 4, alignSelf: 'flex-start' },
+  badgeText: { fontSize: 7, fontWeight: 'bold', textTransform: 'uppercase', letterSpacing: 0.5 },
   
   badgePassBg: { backgroundColor: '#DCFCE7' },
   badgePassText: { color: '#166534' },
@@ -197,7 +197,7 @@ export const ReportPDF = ({ data, category }: { data: any, category?: string }) 
 
         return (
           <Page key={catName} size="A4" style={styles.page}>
-            <View style={[styles.headerSection, { paddingBottom: 30 }]} fixed>
+            <View style={[styles.headerSection, { paddingBottom: 20 }]} fixed>
               <Text style={styles.header}>{catName.charAt(0).toUpperCase() + catName.slice(1)} Analysis</Text>
               <Text style={styles.url}>{data.url}</Text>
             </View>
@@ -292,7 +292,7 @@ export const ReportPDF = ({ data, category }: { data: any, category?: string }) 
       {/* Behavioral Analysis Page */}
       {report.clarityData && report.clarityData.metrics && (!category || category === 'behavioral') && (
         <Page size="A4" style={styles.page}>
-          <View style={[styles.headerSection, { paddingBottom: 30 }]} fixed>
+          <View style={[styles.headerSection, { paddingBottom: 20 }]} fixed>
             <Text style={styles.header}>Behavioral Analysis</Text>
             <Text style={styles.url}>Powered by Microsoft Clarity</Text>
           </View>
@@ -303,30 +303,30 @@ export const ReportPDF = ({ data, category }: { data: any, category?: string }) 
                 <Text style={styles.categoryTitle}>Engagement Metrics</Text>
               </View>
               
-              <View style={{ flexDirection: 'row', justifyContent: 'space-between', marginBottom: 30 }}>
-                <View style={{ width: '31%', backgroundColor: '#F9FAFB', padding: 20, borderRadius: 12, borderWidth: 1, borderColor: '#E5E7EB' }}>
-                  <Text style={{ fontSize: 10, fontWeight: 'bold', color: '#6B7280', textTransform: 'uppercase', marginBottom: 12 }}>Dead Clicks</Text>
-                  <Text style={{ fontSize: 32, fontWeight: 'bold', color: report.clarityData.metrics.deadClicks > 5 ? '#EF4444' : '#111827' }}>
+              <View style={{ flexDirection: 'row', justifyContent: 'space-between', marginBottom: 20 }}>
+                <View style={{ width: '31%', backgroundColor: '#F9FAFB', padding: 16, borderRadius: 8, borderWidth: 1, borderColor: '#E5E7EB' }}>
+                  <Text style={{ fontSize: 9.5, fontWeight: 'bold', color: '#6B7280', textTransform: 'uppercase', marginBottom: 8 }}>Dead Clicks</Text>
+                  <Text style={{ fontSize: 24, fontWeight: 'bold', color: report.clarityData.metrics.deadClicks > 5 ? '#EF4444' : '#111827' }}>
                     {report.clarityData.metrics.deadClicks || 0}
                   </Text>
                 </View>
-                <View style={{ width: '31%', backgroundColor: '#F9FAFB', padding: 20, borderRadius: 12, borderWidth: 1, borderColor: '#E5E7EB' }}>
-                  <Text style={{ fontSize: 10, fontWeight: 'bold', color: '#6B7280', textTransform: 'uppercase', marginBottom: 12 }}>Rage Clicks</Text>
-                  <Text style={{ fontSize: 32, fontWeight: 'bold', color: report.clarityData.metrics.rageClicks > 2 ? '#F97316' : '#111827' }}>
+                <View style={{ width: '31%', backgroundColor: '#F9FAFB', padding: 16, borderRadius: 8, borderWidth: 1, borderColor: '#E5E7EB' }}>
+                  <Text style={{ fontSize: 9.5, fontWeight: 'bold', color: '#6B7280', textTransform: 'uppercase', marginBottom: 8 }}>Rage Clicks</Text>
+                  <Text style={{ fontSize: 24, fontWeight: 'bold', color: report.clarityData.metrics.rageClicks > 2 ? '#F97316' : '#111827' }}>
                     {report.clarityData.metrics.rageClicks || 0}
                   </Text>
                 </View>
-                <View style={{ width: '31%', backgroundColor: '#F9FAFB', padding: 20, borderRadius: 12, borderWidth: 1, borderColor: '#E5E7EB' }}>
-                  <Text style={{ fontSize: 10, fontWeight: 'bold', color: '#6B7280', textTransform: 'uppercase', marginBottom: 12 }}>Scroll Depth</Text>
-                  <Text style={{ fontSize: 32, fontWeight: 'bold', color: '#111827' }}>
+                <View style={{ width: '31%', backgroundColor: '#F9FAFB', padding: 16, borderRadius: 8, borderWidth: 1, borderColor: '#E5E7EB' }}>
+                  <Text style={{ fontSize: 9.5, fontWeight: 'bold', color: '#6B7280', textTransform: 'uppercase', marginBottom: 8 }}>Scroll Depth</Text>
+                  <Text style={{ fontSize: 24, fontWeight: 'bold', color: '#111827' }}>
                     {report.clarityData.metrics.scrollDepthAverage || 0}%
                   </Text>
                 </View>
               </View>
 
               {report.clarityData.metrics.highDropoffZones && report.clarityData.metrics.highDropoffZones.length > 0 && (
-                <View style={[styles.listGroup, { backgroundColor: '#FEF2F2', padding: 20, borderRadius: 12, borderWidth: 1, borderColor: '#FEE2E2', marginBottom: 20 }]} wrap={false}>
-                  <Text style={[styles.listHeading, { color: '#991B1B', fontSize: 12, marginBottom: 12 }]}>High Drop-off Zones</Text>
+                <View style={[styles.listGroup, { backgroundColor: '#FEF2F2', padding: 16, borderRadius: 8, borderWidth: 1, borderColor: '#FEE2E2', marginBottom: 16 }]} wrap={false}>
+                  <Text style={[styles.listHeading, { color: '#991B1B', fontSize: 11, marginBottom: 8 }]}>High Drop-off Zones</Text>
                   {report.clarityData.metrics.highDropoffZones.map((zone: string, i: number) => (
                     <View key={`zone-${i}`} style={styles.bullet}>
                       <Text style={[styles.bulletPoint, { color: '#EF4444' }]}>•</Text>
@@ -337,12 +337,12 @@ export const ReportPDF = ({ data, category }: { data: any, category?: string }) 
               )}
 
               {report.clarityData.insights && (
-                <View style={[styles.listGroup, { backgroundColor: '#EEF2FF', padding: 24, borderRadius: 12, borderWidth: 1, borderColor: '#E0E7FF' }]} wrap={false}>
-                  <Text style={[styles.listHeading, { color: '#4338CA', fontSize: 14, marginBottom: 16 }]}>AI-Powered CRO Insights</Text>
+                <View style={[styles.listGroup, { backgroundColor: '#EEF2FF', padding: 16, borderRadius: 8, borderWidth: 1, borderColor: '#E0E7FF' }]} wrap={false}>
+                  <Text style={[styles.listHeading, { color: '#4338CA', fontSize: 12, marginBottom: 10 }]}>AI-Powered CRO Insights</Text>
                   {report.clarityData.insights.split('\n').map((paragraph: string, i: number) => {
                     if (!paragraph.trim()) return null;
                     return (
-                      <Text key={`insight-${i}`} style={{ fontSize: 11, color: '#3730A3', lineHeight: 1.6, marginBottom: 10 }}>
+                      <Text key={`insight-${i}`} style={{ fontSize: 9.5, color: '#3730A3', lineHeight: 1.5, marginBottom: 8 }}>
                         {paragraph}
                       </Text>
                     );
