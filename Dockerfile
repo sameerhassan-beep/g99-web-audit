@@ -40,6 +40,10 @@ COPY --from=builder /app/public ./public
 COPY --from=builder /app/.next/standalone ./
 COPY --from=builder /app/.next/static ./.next/static
 
+# Explicitly copy Playwright to guarantee browsers.json and binaries are present
+COPY --from=builder /app/node_modules/playwright-core ./node_modules/playwright-core
+COPY --from=builder /app/node_modules/playwright ./node_modules/playwright
+
 EXPOSE 3000
 ENV PORT=3000
 ENV HOSTNAME="0.0.0.0"
