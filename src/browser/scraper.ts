@@ -60,7 +60,7 @@ export class WebsiteScraper {
 
     // Capture Viewports
     // Desktop
-    await page.setViewportSize({ width: 1920, height: 1080 });
+    await page.setViewportSize({ width: 1280, height: 800 });
     await page.waitForTimeout(1000);
     const desktopBuffer = await page.screenshot({ type: 'jpeg', quality: 20, scale: 'css' });
 
@@ -74,10 +74,10 @@ export class WebsiteScraper {
     await page.waitForTimeout(1000);
     const mobileBuffer = await page.screenshot({ type: 'jpeg', quality: 20, scale: 'css' });
 
-    // Full Page (Reset to desktop width for full scroll capture)
-    await page.setViewportSize({ width: 1920, height: 1080 });
+    // Full Page (Simulated with a tall viewport to prevent OOM on infinite scroll / huge pages)
+    await page.setViewportSize({ width: 1280, height: 4000 });
     await page.waitForTimeout(1000);
-    const fullPageBuffer = await page.screenshot({ type: 'jpeg', quality: 20, scale: 'css', fullPage: true });
+    const fullPageBuffer = await page.screenshot({ type: 'jpeg', quality: 20, scale: 'css' });
 
     // Remove Modals / Sticky Overlays
     await page.evaluate(() => {
@@ -91,7 +91,7 @@ export class WebsiteScraper {
     
     // Wait for repaint just in case
     await page.waitForTimeout(1000);
-    const fullPageNoModalsBuffer = await page.screenshot({ type: 'jpeg', quality: 20, scale: 'css', fullPage: true });
+    const fullPageNoModalsBuffer = await page.screenshot({ type: 'jpeg', quality: 20, scale: 'css' });
 
     await context.close();
 
