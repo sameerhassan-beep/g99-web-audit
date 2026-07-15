@@ -132,7 +132,10 @@ function NewAuditForm() {
           url: finalData.url,
           project_id: selectedProjectId,
           overall_score: finalData.report.overallScore,
-          report: finalData.report,
+          report: {
+            ...finalData.report,
+            clarityData: finalData.clarityData
+          },
           screenshots: finalData.screenshots,
           sub_pages: [],
           ...(user ? { user_id: user.id } : {})

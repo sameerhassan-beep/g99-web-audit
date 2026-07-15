@@ -168,15 +168,11 @@ export async function POST(req: NextRequest) {
         const visionResult = masterResultRaw ? masterResultRaw.vision : null;
         const uxResult = masterResultRaw ? masterResultRaw.ux : null;
         const croResult = masterResultRaw ? masterResultRaw.cro : null;
-        const mobileResult = masterResultRaw ? masterResultRaw.mobile : null;
-        const brandResult = masterResultRaw ? masterResultRaw.brand : null;
         const contentResult = masterResultRaw ? masterResultRaw.content : null;
-        const marketResult = masterResultRaw ? masterResultRaw.market : null;
 
         if (masterResultRaw) {
           const simulatedAgents = [
-            'VisionAgent', 'UXAgent', 'MobileAgent', 'CROAgent', 
-            'BrandAgent', 'ContentAgent', 'MarketAgent'
+            'VisionAgent', 'UXAgent', 'CROAgent', 'ContentAgent'
           ];
           for (const sa of simulatedAgents) {
             send({ type: 'agent_complete', agent: sa });
@@ -194,12 +190,9 @@ export async function POST(req: NextRequest) {
           vision: visionResult || undefined,
           ux: uxResult || undefined,
           cro: croResult || undefined,
-          brand: brandResult || undefined,
           content: contentResult || undefined,
           performance: psiData ? psiData.performance : undefined,
-          security: psiData ? psiData.bestPractices : undefined,
-          mobile: mobileResult || undefined,
-          market: marketResult || undefined
+          security: psiData ? psiData.bestPractices : undefined
         });
 
         // Save screenshots to filesystem
@@ -231,7 +224,8 @@ export async function POST(req: NextRequest) {
             metadata: scrapeData.metadata,
             htmlLength: scrapeData.html.length,
             report: finalReport,
-            screenshots: savedScreenshots
+            screenshots: savedScreenshots,
+            clarityData: clarityData ? { ...JSON.parse(clarityData), insights: masterResultRaw?.clarityInsights } : null
           }
         });
 

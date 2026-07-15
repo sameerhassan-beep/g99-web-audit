@@ -6,12 +6,9 @@ export interface AuditResults {
   vision: AgentResult;
   ux: AgentResult;
   cro: AgentResult;
-  brand: AgentResult;
   content: AgentResult;
   performance: AgentResult;
   security: AgentResult;
-  mobile: AgentResult;
-  market: AgentResult;
 }
 
 export interface ScoredAuditReport {
@@ -29,17 +26,14 @@ export interface ScoredAuditReport {
 export class ScoringEngine {
   // Define weights for each category. Must sum to 100.
   private readonly WEIGHTS = {
-    vision: 10,       // 10%
-    ux: 15,           // 15%
+    vision: 15,       // 15%
+    ux: 20,           // 20%
     cro: 15,          // 15%
-    seo: 10,          // 10%
+    seo: 15,          // 15%
     accessibility: 10,// 10%
-    brand: 5,         // 5%
     content: 5,       // 5%
     performance: 10,  // 10%
-    security: 10,     // 10%
-    mobile: 5,        // 5%
-    market: 5     // 5%
+    security: 10      // 10%
   };
 
   public generateReport(results: Partial<AuditResults>): ScoredAuditReport {

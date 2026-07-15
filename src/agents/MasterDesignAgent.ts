@@ -57,14 +57,11 @@ export class MasterDesignAgent extends BaseAgent {
         maxRetries: 7,
         system: `You are an elite, agency-level Design, UX, and Strategy Team.
 Your goal is to conduct a relentless, high-end critique of the provided website screenshots. You are provided with: Desktop Viewport, Mobile Viewport, and a Clean FullPage (Header to Footer, with popups removed).
-You must evaluate the website across 7 distinct disciplines simultaneously, paying close attention to the full header-to-footer experience:
+You must evaluate the website across 4 distinct disciplines simultaneously, paying close attention to the full header-to-footer experience:
 1. Vision & UI (typography, whitespace, hierarchy, contrast, modern aesthetics)
 2. UX & Usability (navigation, mental models, friction, accessibility)
 3. CRO & Sales (funnel clarity, CTA placement, value props, trust signals)
-4. Mobile Responsiveness (touch targets, fluid layout, scaling)
-5. Brand Identity (consistency, personality, premium feel)
-6. Content & Copy (readability, microcopy, persuasion, skimmability)
-7. Market Analysis (positioning, feature parity, differentiation)
+4. Content & Copy (readability, microcopy, persuasion, skimmability)
 
 CRITICAL INSTRUCTION: You MUST be extremely detailed. Do not give short bullet points. Every observation, issue, and recommendation MUST be a comprehensive, multi-sentence paragraph. Explain the 'why' and 'how' deeply. Act like a senior design consultant writing a $10,000 audit report. Do not hold back on pointing out generic or outdated elements. Give specific, actionable recommendations for each category.
 For EVERY category, output 3-5 visual markers identifying the exact locations of key issues. Use estimated percentage coordinates (x=0 to 100 left-to-right, y=0 to 100 top-to-bottom) based on your spatial understanding of the screenshot provided.${clarityContext}`,
@@ -72,10 +69,8 @@ For EVERY category, output 3-5 visual markers identifying the exact locations of
           vision: AgentResultSchema,
           ux: AgentResultSchema,
           cro: AgentResultSchema,
-          mobile: AgentResultSchema,
-          brand: AgentResultSchema,
           content: AgentResultSchema,
-          market: AgentResultSchema
+          clarityInsights: z.string().optional().describe('If MICROSOFT CLARITY behavioral data is provided, you MUST output a highly detailed, multi-paragraph CRO analysis here explaining exactly how the behavioral metrics (e.g. rage clicks, drop-offs) map to visual design flaws, and what CRO steps to take. If no Clarity data is provided, leave this empty.')
         }),
         messages: [
           {
@@ -105,10 +100,14 @@ For EVERY category, output 3-5 visual markers identifying the exact locations of
       // Inject screenshots tag into each result to match legacy output
       const finalResult: any = {};
       for (const [key, val] of Object.entries(object)) {
-        finalResult[key] = {
-          ...(val as any),
-          screenshots: ['desktop', 'tablet', 'mobile']
-        };
+        if (key === 'clarityInsights') {
+          finalResult[key] = val;
+        } else {
+          finalResult[key] = {
+            ...(val as any),
+            screenshots: ['desktop', 'tablet', 'mobile']
+          };
+        }
       }
 
       return finalResult;

@@ -2,7 +2,7 @@
 
 import React, { useEffect, useState, Suspense } from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
-import { BarChart, Bar, XAxis, YAxis, CartesianGrid, ResponsiveContainer, Tooltip } from 'recharts';
+import { BarChart, Bar, XAxis, YAxis, CartesianGrid, ResponsiveContainer, Tooltip, LabelList } from 'recharts';
 import { ArrowLeft, CheckCircle2, XCircle, AlertTriangle, Loader2, Plus, Globe, Download, ArrowUpRight, ShieldAlert, Zap, Image as ImageIcon } from 'lucide-react';
 import dynamic from 'next/dynamic';
 import Link from 'next/link';
@@ -279,6 +279,105 @@ function ReportContent() {
           </div>
         </div>
 
+        {/* Microsoft Clarity Behavioral Analysis */}
+        {report.clarityData && report.clarityData.metrics && (
+          <div className="bg-white rounded-[2rem] p-8 md:p-10 shadow-sm border border-slate-100 relative overflow-hidden">
+            <div className="flex items-center justify-between mb-8">
+              <div className="flex items-center gap-3">
+                <div className="w-12 h-12 bg-[#F3F4F6] rounded-xl flex items-center justify-center border border-slate-200">
+                  <img src="https://upload.wikimedia.org/wikipedia/commons/4/44/Microsoft_logo.svg" alt="Microsoft" className="w-6 h-6 object-contain" />
+                </div>
+                <div>
+                  <h2 className="text-2xl font-bold text-slate-900">Behavioral Analysis</h2>
+                  <p className="text-sm font-semibold text-indigo-600 flex items-center gap-1.5 mt-0.5">
+                    <span className="relative flex h-2.5 w-2.5">
+                      <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-indigo-400 opacity-75"></span>
+                      <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-indigo-500"></span>
+                    </span>
+                    Powered by Microsoft Clarity
+                  </p>
+                </div>
+              </div>
+            </div>
+
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
+              {/* Dead Clicks */}
+              <div className="bg-slate-50 border border-slate-200 rounded-2xl p-6 flex flex-col justify-between">
+                <h3 className="text-slate-500 font-bold uppercase tracking-wider text-xs mb-4">Dead Clicks</h3>
+                <div className="flex items-end gap-3">
+                  <span className={`text-4xl font-black ${report.clarityData.metrics.deadClicks > 5 ? 'text-red-500' : 'text-slate-900'}`}>
+                    {report.clarityData.metrics.deadClicks || 0}
+                  </span>
+                  <span className="text-slate-500 font-medium mb-1">events</span>
+                </div>
+              </div>
+
+              {/* Rage Clicks */}
+              <div className="bg-slate-50 border border-slate-200 rounded-2xl p-6 flex flex-col justify-between">
+                <h3 className="text-slate-500 font-bold uppercase tracking-wider text-xs mb-4">Rage Clicks</h3>
+                <div className="flex items-end gap-3">
+                  <span className={`text-4xl font-black ${report.clarityData.metrics.rageClicks > 2 ? 'text-orange-500' : 'text-slate-900'}`}>
+                    {report.clarityData.metrics.rageClicks || 0}
+                  </span>
+                  <span className="text-slate-500 font-medium mb-1">events</span>
+                </div>
+              </div>
+
+              {/* Scroll Depth */}
+              <div className="bg-slate-50 border border-slate-200 rounded-2xl p-6 flex flex-col justify-between">
+                <h3 className="text-slate-500 font-bold uppercase tracking-wider text-xs mb-4">Avg. Scroll Depth</h3>
+                <div className="w-full bg-slate-200 rounded-full h-3 mb-3">
+                  <div className="bg-indigo-500 h-3 rounded-full" style={{ width: `${report.clarityData.metrics.scrollDepthAverage || 0}%` }}></div>
+                </div>
+                <div className="text-right text-lg font-bold text-slate-900">
+                  {report.clarityData.metrics.scrollDepthAverage || 0}%
+                </div>
+              </div>
+            </div>
+
+            {report.clarityData.metrics.highDropoffZones && report.clarityData.metrics.highDropoffZones.length > 0 && (
+              <div className="bg-red-50 border border-red-100 rounded-2xl p-6 mb-8">
+                <h3 className="text-red-800 font-bold mb-3 flex items-center gap-2"><AlertTriangle className="w-5 h-5"/> High Drop-off Zones</h3>
+                <ul className="list-disc list-inside text-red-700 font-medium">
+                  {report.clarityData.metrics.highDropoffZones.map((zone: string, i: number) => (
+                    <li key={i}>{zone}</li>
+                  ))}
+                </ul>
+              </div>
+            )}
+
+            {report.clarityData.insights && (
+              <div className="bg-indigo-50 border border-indigo-100 rounded-[1.5rem] p-8 mt-2 shadow-sm">
+                <div className="flex items-center gap-3 mb-6">
+                  <div className="w-10 h-10 bg-indigo-600 rounded-xl flex items-center justify-center shadow-sm">
+                    <Zap className="w-5 h-5 text-white" />
+                  </div>
+                  <h3 className="text-xl font-bold text-slate-900">AI-Powered CRO Insights</h3>
+                </div>
+                <div className="prose prose-slate prose-indigo max-w-none text-slate-700 leading-relaxed font-medium">
+                  {report.clarityData.insights.split('\n').map((paragraph: string, i: number) => (
+                    paragraph.trim() ? <p key={i} className="mb-4">{paragraph}</p> : null
+                  ))}
+                </div>
+              </div>
+            )}
+            
+            <div className="flex items-center justify-between mt-8 border-t border-slate-100 pt-6">
+              {report.clarityData.note && (
+                 <p className="text-xs text-slate-400 font-medium">Note: {report.clarityData.note}</p>
+              )}
+              <a 
+                href="https://clarity.microsoft.com" 
+                target="_blank" 
+                rel="noreferrer"
+                className="text-sm font-bold text-indigo-600 hover:text-indigo-800 flex items-center gap-1 transition-colors"
+              >
+                View Full Recordings in Dashboard <ArrowUpRight className="w-4 h-4" />
+              </a>
+            </div>
+          </div>
+        )}
+
         {/* Scan Subpage (Full Width) */}
         <div className="bg-[#F3F4F6] rounded-[2rem] p-8 border border-slate-200 shadow-sm flex flex-col md:flex-row md:items-center justify-between gap-6">
           <div className="md:w-1/2">
@@ -313,12 +412,14 @@ function ReportContent() {
             <h2 className="text-xl font-bold mb-8 text-slate-900">Category Breakdown</h2>
             <div className="h-64">
               <ResponsiveContainer width="100%" height="100%">
-                <BarChart data={barData} margin={{ top: 10, right: 10, left: -20, bottom: 0 }}>
+                <BarChart data={barData} margin={{ top: 25, right: 10, left: -20, bottom: 0 }}>
                   <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="#F3F4F6" />
                   <XAxis dataKey="name" axisLine={false} tickLine={false} tick={{ fontSize: 12, fill: '#9CA3AF', fontWeight: 'bold' }} />
                   <YAxis axisLine={false} tickLine={false} tick={{ fontSize: 12, fill: '#9CA3AF', fontWeight: 'bold' }} />
                   <Tooltip cursor={{fill: '#F9FAFB'}} contentStyle={{ borderRadius: '16px', border: '1px solid #E5E7EB', boxShadow: '0 10px 25px -5px rgba(0, 0, 0, 0.1)', fontWeight: 'bold' }} />
-                  <Bar dataKey="Score" fill="#8B5CF6" radius={[8, 8, 0, 0]} maxBarSize={60} />
+                  <Bar dataKey="Score" fill="#8B5CF6" radius={[8, 8, 0, 0]} maxBarSize={60}>
+                    <LabelList dataKey="Score" position="top" formatter={(val: any) => `${val}%`} style={{ fill: '#6B7280', fontSize: 14, fontWeight: 'bold' }} />
+                  </Bar>
                 </BarChart>
               </ResponsiveContainer>
             </div>

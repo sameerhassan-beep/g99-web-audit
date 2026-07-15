@@ -190,20 +190,19 @@ export const ReportPDF = ({ data, category }: { data: any, category?: string }) 
       </Page>
       )}
 
-      {/* Detailed Categories Pages */}
-      <Page size="A4" style={styles.page}>
-        <View style={[styles.headerSection, { paddingBottom: 30 }]}>
-          <Text style={styles.header}>{category ? `${category.charAt(0).toUpperCase() + category.slice(1)} Analysis` : 'Detailed Category Audits'}</Text>
-          <Text style={styles.url}>{category ? data.url : 'Comprehensive breakdown of all AI engines'}</Text>
-        </View>
-        
-        <View style={styles.contentArea}>
-          {categoriesToRender.map((catName, catIdx) => {
-            const result = report.rawResults[catName as keyof typeof report.rawResults]!;
-            if (!result || !result.checks || result.checks.length === 0) return null;
+      {categoriesToRender.map((catName, catIdx) => {
+        const result = report.rawResults[catName as keyof typeof report.rawResults]!;
+        if (!result || !result.checks || result.checks.length === 0) return null;
 
-            return (
-              <View key={catName} style={styles.categoryBlock} break={catIdx > 0}>
+        return (
+          <Page key={catName} size="A4" style={styles.page}>
+            <View style={[styles.headerSection, { paddingBottom: 30 }]} fixed>
+              <Text style={styles.header}>{catName.charAt(0).toUpperCase() + catName.slice(1)} Analysis</Text>
+              <Text style={styles.url}>{data.url}</Text>
+            </View>
+            
+            <View style={styles.contentArea}>
+              <View style={styles.categoryBlock}>
                 <View style={styles.categoryHeader}>
                   <Text style={styles.categoryTitle}>{catName} Analysis</Text>
                   <Text style={styles.categoryScore}>{result.score}/100</Text>
@@ -246,7 +245,7 @@ export const ReportPDF = ({ data, category }: { data: any, category?: string }) 
                 )}
                 
                 <View style={styles.tableContainer}>
-                  <View style={styles.tableHeader}>
+                  <View style={styles.tableHeader} fixed>
                     <Text style={[styles.tableHeaderText, styles.colStatus]}>Status</Text>
                     <Text style={[styles.tableHeaderText, styles.colCheck]}>Audit Check</Text>
                     <Text style={[styles.tableHeaderText, styles.colImpact]}>Impact</Text>
@@ -284,10 +283,10 @@ export const ReportPDF = ({ data, category }: { data: any, category?: string }) 
                   })}
                 </View>
               </View>
-            );
-          })}
-        </View>
-      </Page>
+            </View>
+          </Page>
+        );
+      })}
     </Document>
   );
 };
