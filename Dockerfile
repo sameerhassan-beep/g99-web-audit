@@ -27,6 +27,7 @@ WORKDIR /app
 
 ENV NODE_ENV=production
 ENV NEXT_TELEMETRY_DISABLED=1
+ENV NODE_OPTIONS="--max-old-space-size=256"
 
 # Install Playwright dependencies (browsers + OS libraries)
 # This is required for the WebsiteScraper to launch Chromium
