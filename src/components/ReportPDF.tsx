@@ -190,6 +190,7 @@ export const ReportPDF = ({ data, category }: { data: any, category?: string }) 
       </Page>
       )}
 
+      {/* Detailed Categories Pages */}
       {categoriesToRender.map((catName, catIdx) => {
         const result = report.rawResults[catName as keyof typeof report.rawResults]!;
         if (!result || !result.checks || result.checks.length === 0) return null;
@@ -287,6 +288,72 @@ export const ReportPDF = ({ data, category }: { data: any, category?: string }) 
           </Page>
         );
       })}
+
+      {/* Behavioral Analysis Page */}
+      {report.clarityData && report.clarityData.metrics && (!category || category === 'behavioral') && (
+        <Page size="A4" style={styles.page}>
+          <View style={[styles.headerSection, { paddingBottom: 30 }]} fixed>
+            <Text style={styles.header}>Behavioral Analysis</Text>
+            <Text style={styles.url}>Powered by Microsoft Clarity</Text>
+          </View>
+          
+          <View style={styles.contentArea}>
+            <View style={styles.categoryBlock}>
+              <View style={styles.categoryHeader}>
+                <Text style={styles.categoryTitle}>Engagement Metrics</Text>
+              </View>
+              
+              <View style={{ flexDirection: 'row', justifyContent: 'space-between', marginBottom: 30 }}>
+                <View style={{ width: '31%', backgroundColor: '#F9FAFB', padding: 20, borderRadius: 12, borderWidth: 1, borderColor: '#E5E7EB' }}>
+                  <Text style={{ fontSize: 10, fontWeight: 'bold', color: '#6B7280', textTransform: 'uppercase', marginBottom: 12 }}>Dead Clicks</Text>
+                  <Text style={{ fontSize: 32, fontWeight: 'bold', color: report.clarityData.metrics.deadClicks > 5 ? '#EF4444' : '#111827' }}>
+                    {report.clarityData.metrics.deadClicks || 0}
+                  </Text>
+                </View>
+                <View style={{ width: '31%', backgroundColor: '#F9FAFB', padding: 20, borderRadius: 12, borderWidth: 1, borderColor: '#E5E7EB' }}>
+                  <Text style={{ fontSize: 10, fontWeight: 'bold', color: '#6B7280', textTransform: 'uppercase', marginBottom: 12 }}>Rage Clicks</Text>
+                  <Text style={{ fontSize: 32, fontWeight: 'bold', color: report.clarityData.metrics.rageClicks > 2 ? '#F97316' : '#111827' }}>
+                    {report.clarityData.metrics.rageClicks || 0}
+                  </Text>
+                </View>
+                <View style={{ width: '31%', backgroundColor: '#F9FAFB', padding: 20, borderRadius: 12, borderWidth: 1, borderColor: '#E5E7EB' }}>
+                  <Text style={{ fontSize: 10, fontWeight: 'bold', color: '#6B7280', textTransform: 'uppercase', marginBottom: 12 }}>Scroll Depth</Text>
+                  <Text style={{ fontSize: 32, fontWeight: 'bold', color: '#111827' }}>
+                    {report.clarityData.metrics.scrollDepthAverage || 0}%
+                  </Text>
+                </View>
+              </View>
+
+              {report.clarityData.metrics.highDropoffZones && report.clarityData.metrics.highDropoffZones.length > 0 && (
+                <View style={[styles.listGroup, { backgroundColor: '#FEF2F2', padding: 20, borderRadius: 12, borderWidth: 1, borderColor: '#FEE2E2', marginBottom: 20 }]} wrap={false}>
+                  <Text style={[styles.listHeading, { color: '#991B1B', fontSize: 12, marginBottom: 12 }]}>High Drop-off Zones</Text>
+                  {report.clarityData.metrics.highDropoffZones.map((zone: string, i: number) => (
+                    <View key={`zone-${i}`} style={styles.bullet}>
+                      <Text style={[styles.bulletPoint, { color: '#EF4444' }]}>•</Text>
+                      <Text style={[styles.bulletText, { color: '#B91C1C' }]}>{zone}</Text>
+                    </View>
+                  ))}
+                </View>
+              )}
+
+              {report.clarityData.insights && (
+                <View style={[styles.listGroup, { backgroundColor: '#EEF2FF', padding: 24, borderRadius: 12, borderWidth: 1, borderColor: '#E0E7FF' }]} wrap={false}>
+                  <Text style={[styles.listHeading, { color: '#4338CA', fontSize: 14, marginBottom: 16 }]}>AI-Powered CRO Insights</Text>
+                  {report.clarityData.insights.split('\n').map((paragraph: string, i: number) => {
+                    if (!paragraph.trim()) return null;
+                    return (
+                      <Text key={`insight-${i}`} style={{ fontSize: 11, color: '#3730A3', lineHeight: 1.6, marginBottom: 10 }}>
+                        {paragraph}
+                      </Text>
+                    );
+                  })}
+                </View>
+              )}
+              
+            </View>
+          </View>
+        </Page>
+      )}
     </Document>
   );
 };
